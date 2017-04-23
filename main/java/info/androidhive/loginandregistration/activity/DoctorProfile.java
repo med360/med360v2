@@ -82,7 +82,7 @@ public class DoctorProfile extends Activity {
                     finish();
                     return true;
                 case R.id.logoutnav:
-                    Log.e("medlogin", "before redirecting to new activity on success login");
+                    Log.e("medlogin", "before redirecting to new activity on success logout");
                     session = new SessionManager(getApplicationContext());
                     session.setLogin(false);
                     session.logoutUser();
