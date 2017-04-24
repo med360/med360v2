@@ -187,8 +187,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        filter = (Button) findViewById(R.id.filter);
-        //spinner = (Spinner) findViewById(R.id.spinner_spec);
+
 
 
 
@@ -203,6 +202,9 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewdoctor);
+
+        filter = (Button) findViewById(R.id.filter);
+        //spinner = (Spinner) findViewById(R.id.spinner_spec);
 
         detbtn = (Button) findViewById(R.id.detbtn);
 
