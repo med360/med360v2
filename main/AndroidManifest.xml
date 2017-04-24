@@ -71,7 +71,8 @@
             android:name=".activity.BottomNav"
             android:exported="true"
             android:label="@string/title_activity_bottom_nav" />
-        <activity android:name=".activity.Booking"></activity>
+        <activity android:name=".activity.Booking"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

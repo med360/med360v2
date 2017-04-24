@@ -6,4 +6,66 @@
     android:layout_height="match_parent"
     tools:context="info.androidhive.loginandregistration.activity.Booking">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:padding="10dp"
+        android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.87"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/appdate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+
+            android:hint="Date of Appointment"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint" />
+
+        <Button
+            android:id="@+id/btndate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="setDate"
+            android:background="#ea4c88"
+            android:layout_marginBottom="10dip"
+            android:text="Set Date"
+            android:textColor="#FFFFFF" />
+        <Spinner
+            android:id="@+id/preftime"
+            android:layout_width="327dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint" />
+
+        <Button
+            android:id="@+id/btnrequest"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:background="#ea4c88"
+            android:text="Request Appointment"
+            android:textColor="#FFFFFF" />
+
+        <!-- Link to Login Screen -->
+
+    </LinearLayout>
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
