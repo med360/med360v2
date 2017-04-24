@@ -43,6 +43,7 @@ public class LoginActivity extends Activity {
     private SessionManager session;
     private SQLiteHandler db;
     private String name2="";
+    private String name5="";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
