@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
-    private String name2="";
+    private String name3="";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
