@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.LruCache;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +51,7 @@ public class DoctorProfile extends Activity {
     private TextView txtdoctornationality;
     private TextView txtgender;
     private NetworkImageView thumbNail;
+    private Button btnbook;
 
 
 
@@ -110,20 +113,39 @@ public class DoctorProfile extends Activity {
         txtgender = (TextView) findViewById(R.id.doctorgender);
         txtspcl = (TextView) findViewById(R.id.doctorspcl);
 
+        btnbook = (Button) findViewById(R.id.btnbook);
 
        thumbNail = (NetworkImageView) findViewById(R.id.doctoreimage);
-        // getting product details from intent
+
         Intent i = getIntent();
-        // getting product id (pid) from intent
+        // getting doctor id (did) from intent
         final String did = i.getStringExtra("did");
 
         Log.e("singledoctor", "before function call");
+
+
+
+
+        btnbook.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // Starting new intent
+                Intent in = new Intent(getApplicationContext(),
+                        Booking.class);
+                // sending did to next activity
+                in.putExtra("did", did);
+
+                // starting new activity and expecting some response back
+                startActivityForResult(in, 100);
+            }
+        });
 
         getDoctor(did);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
+
+
 
 
 

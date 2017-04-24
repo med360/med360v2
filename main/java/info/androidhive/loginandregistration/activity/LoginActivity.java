@@ -154,9 +154,10 @@ public class LoginActivity extends Activity {
                         String bgp = user.getString("bgp");
 
                         String dob = user.getString("dob");
+                        String pid = user.getString("pid");
                        String created_at = user.getString("created_at");
                         Log.e("medlogin", "stored all user information to strings");
-                        session.createLoginSession(name, email, dob,nationality,bgp);
+                        session.createLoginSession(name, email, dob,nationality,bgp,pid);
                         Log.e("medlogin", "session created");
 
                         // Inserting row in users table

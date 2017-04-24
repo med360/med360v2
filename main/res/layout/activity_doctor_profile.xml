@@ -69,7 +69,7 @@
 
 
         <Button
-            android:id="@+id/btnLogout1"
+            android:id="@+id/btnmsg"
             android:layout_width="276dp"
             android:layout_height="30dp"
             android:layout_marginTop="20dip"
@@ -80,13 +80,13 @@
             android:textSize="15dp" />
 
         <Button
-            android:id="@+id/btnLogout2"
+            android:id="@+id/btnbook"
             android:layout_width="276dp"
             android:layout_height="40dip"
             android:layout_marginTop="20dip"
             android:layout_marginBottom="10dip"
             android:background="@color/btn_logut_bg"
-            android:text="APPOINTMENTS"
+            android:text="REQUEST APPOINTMENT"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="15dp"

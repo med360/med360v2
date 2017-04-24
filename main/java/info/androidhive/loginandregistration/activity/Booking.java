@@ -3,8 +3,10 @@ package info.androidhive.loginandregistration.activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,9 +17,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.app.AppConfig;
+import info.androidhive.loginandregistration.app.AppController;
+import info.androidhive.loginandregistration.helper.SessionManager;
 
 public class Booking extends AppCompatActivity {
     private Button btnrequest;
@@ -25,6 +40,7 @@ public class Booking extends AppCompatActivity {
     private Spinner preftime;
     private EditText appdate;
     private ProgressDialog pDialog;
+    private SessionManager session;
 
     private DatePicker datePicker;
     private Calendar calendar;
@@ -53,6 +69,11 @@ public class Booking extends AppCompatActivity {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
+        session = new SessionManager(getApplicationContext());
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
+
 
 
         btnrequest.setOnClickListener(new View.OnClickListener() {
@@ -61,9 +82,21 @@ public class Booking extends AppCompatActivity {
                 String appodate = appdate.getText().toString().trim();
                 String ptime = preftime.getSelectedItem().toString().trim();
 
+                Intent i = getIntent();
+                // getting doctor id (did) from intent
+                final String did = i.getStringExtra("did");
+
+
+
+                // Fetching user details from Session
+                HashMap<String, String> user = session.getUserDetails();
+                Log.e("bookapp", "hashmap got returned and started to fetch details to strings");
+                final String pid = user.get("pid");
+
+
 
                 if (!appodate.isEmpty() && !ptime.isEmpty() ) {
-                   // createProfile(name, nationality, gender, dob, bgp);
+                   makeappointmentrequest(pid, did, appodate, ptime);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter the date and preferred time!", Toast.LENGTH_LONG)
@@ -142,5 +175,100 @@ public class Booking extends AppCompatActivity {
     private void showDate(int year, int month, int day) {
         dateView.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
+    }
+
+    private void logoutUser() {
+        session.setLogin(false);
+        session.logoutUser();
+    }
+
+
+
+    private void makeappointmentrequest(final String pid, final String did, final String appodate, final String ptime) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_register";
+
+        pDialog.setMessage("Requesting ...");
+        showDialog();
+        Log.e("bookapp", "in makeappointment() before post");
+        final String booking_api="http://azmediame.net/med360/webinterface/api/appointment_request.php";
+        Log.e("bookapp", "code to clear cache is below");
+        AppController.getInstance().getRequestQueue().getCache().remove(booking_api);
+        StringRequest strReq2 = new StringRequest(Request.Method.POST,booking_api, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("bookapp", "Register Response: " + response.toString());
+                hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+
+                    boolean error = jObj.getBoolean("error");
+                    if (!error) {
+                        // Request stored in MySQL
+
+                        Toast.makeText(getApplicationContext(), "Request Sent Successfully", Toast.LENGTH_LONG).show();
+
+                        // Launch doctor profile activity
+                        // Starting new intent
+                        Intent in = new Intent(getApplicationContext(),
+                                DoctorProfile.class);
+                        // sending pid to next activity
+                        in.putExtra("did", did);
+
+                        // starting new activity and expecting some response back
+                        startActivityForResult(in, 100);
+
+                    } else {
+
+                        // Error occurred in registration. Get the error
+                        // message
+                        String errorMsg = jObj.getString("message");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("pid", pid);
+                params.put("did", did);
+                params.put("date", appodate);
+                params.put("pref", ptime);
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq2, tag_string_req);
+    }
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 }

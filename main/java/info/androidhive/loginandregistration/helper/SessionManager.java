@@ -45,7 +45,7 @@ public class SessionManager {
 
 		Log.d(TAG, "User login session modified!");
 	}
-	public void createLoginSession(String name, String email, String dob, String nationality, String blood){
+	public void createLoginSession(String name, String email, String dob, String nationality, String blood,String pid){
 		Log.e("login", "beginning of createloginsession method");
 		// Storing login value as TRUE
 		// Storing name in pref
@@ -54,6 +54,7 @@ public class SessionManager {
 		editor.putString("dob", dob);
         editor.putString("nationality", nationality);
         editor.putString("blood", blood);
+		editor.putString("pid", pid);
 		editor.commit();
 		Log.e("login", "all user details added to pref - login session");
 	}
@@ -71,6 +72,7 @@ public class SessionManager {
 
         user.put("nationality", pref.getString("nationality", null));
         user.put("blood", pref.getString("blood", null));
+		user.put("pid", pref.getString("pid", null));
 
 		Log.e("login", "added all user details in session to hashmap when getuserdetails method called");
 
