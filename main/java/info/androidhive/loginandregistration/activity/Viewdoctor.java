@@ -1,10 +1,12 @@
 package info.androidhive.loginandregistration.activity;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -79,6 +81,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,7 +107,6 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         OnConnectionFailedListener, LocationListener {
 
     //from location act
-
 
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
@@ -140,6 +142,8 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
     PlacesTask placesTask;
     ParserTask parserTask;
     private Button detbtn;
+    private Button filter;
+    private Spinner spinner;
 
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -180,8 +184,11 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         }
 
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        filter = (Button) findViewById(R.id.filter);
+        //spinner = (Spinner) findViewById(R.id.spinner_spec);
 
 
 
@@ -197,7 +204,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewdoctor);
 
-detbtn= (Button) findViewById(R.id.detbtn);
+        detbtn = (Button) findViewById(R.id.detbtn);
 
         atvPlaces = (AutoCompleteTextView) findViewById(R.id.atv_places);
         atvPlaces.setThreshold(1);
@@ -224,76 +231,72 @@ detbtn= (Button) findViewById(R.id.detbtn);
 
         atvPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                                             public void onItemClick(AdapterView adapterView, View view, int position, long id) {
+            public void onItemClick(AdapterView adapterView, View view, int position, long id) {
 
- HashMap<String, String> hm = (HashMap<String, String>) adapterView.getItemAtPosition(position);
-    String str = hm.get("description");
-    String selplaceid=  hm.get("placeid");
-    Log.e("gplaces", "the id of the selected place is: "+selplaceid);
-   atvPlaces.setText(str);
-String api_key="AIzaSyB23yTJ6rI0HPYLw1LBXRI4duiQscXhEx0";
-String placedetailurl="https://maps.googleapis.com/maps/api/place/details/json?placeid="+selplaceid+"&key="+api_key+"";
+                HashMap<String, String> hm = (HashMap<String, String>) adapterView.getItemAtPosition(position);
+                String str = hm.get("description");
+                String selplaceid = hm.get("placeid");
+                Log.e("gplaces", "the id of the selected place is: " + selplaceid);
+                atvPlaces.setText(str);
+                String api_key = "AIzaSyB23yTJ6rI0HPYLw1LBXRI4duiQscXhEx0";
+                String placedetailurl = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + selplaceid + "&key=" + api_key + "";
 
-  Log.e("placedetail", "code to clear cache is below");
- AppController.getInstance().getRequestQueue().getCache().remove(placedetailurl);
-   String tag_string_req = "req_login";                                               StringRequest strReq = new StringRequest(Request.Method.POST, placedetailurl, new Response.Listener<String>() {
+                Log.e("placedetail", "code to clear cache is below");
+                AppController.getInstance().getRequestQueue().getCache().remove(placedetailurl);
+                String tag_string_req = "req_login";
+                StringRequest strReq = new StringRequest(Request.Method.POST, placedetailurl, new Response.Listener<String>() {
 
-    @Override
-      public void onResponse(String response) {
-   Log.d(TAG, "place detail Response: " + response.toString());
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(TAG, "place detail Response: " + response.toString());
 
-  Log.e("placedetail", "response received");
-        try {
-            JSONObject jObj = new JSONObject(response);
-            JSONObject result = jObj.getJSONObject("result");
-            JSONObject geometry = result.getJSONObject("geometry");
-            JSONObject sellocation = geometry.getJSONObject("location");
-            String lat = sellocation.getString("lat");
-            String lng = sellocation.getString("lng");
-            Log.e("placedetail", "Latitude is: "+lat+"Longtiude is: "+lng+"");
-            get_all_doctors(lat,lng);
-        } catch (JSONException e) {
-            // JSON error
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-    }
-                                                 }, new Response.ErrorListener() {
-
-                                                     @Override
-                                                     public void onErrorResponse(VolleyError error) {
-                                                         Log.e(TAG, "Login Error: " + error.getMessage());
-                                                         Toast.makeText(getApplicationContext(),
-                                                                 error.getMessage(), Toast.LENGTH_LONG).show();
-
-                                                     }
-                                                 }) {
-
-                                                     @Override
-                                                     protected Map<String, String> getParams() {
-                                                         // Posting parameters to login url
-                      Log.e("medlogin", "inside getparams method and the email storing in hashmap ");
-                                                         Map<String, String> params = new HashMap<String, String>();
-                                               return params;
-                                                     }
-
-                                                 };
-
-                                                 // Adding request to request queue
-                                                 AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+                        Log.e("placedetail", "response received");
+                        try {
+                            JSONObject jObj = new JSONObject(response);
+                            JSONObject result = jObj.getJSONObject("result");
+                            JSONObject geometry = result.getJSONObject("geometry");
+                            JSONObject sellocation = geometry.getJSONObject("location");
+                            String lat = sellocation.getString("lat");
+                            String lng = sellocation.getString("lng");
+                            Log.e("placedetail", "Latitude is: " + lat + "Longtiude is: " + lng + "");
+                            get_all_doctors(lat, lng);
+                        } catch (JSONException e) {
+                            // JSON error
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
 
 
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "Login Error: " + error.getMessage());
+                        Toast.makeText(getApplicationContext(),
+                                error.getMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+                }) {
+
+                    @Override
+                    protected Map<String, String> getParams() {
+                        // Posting parameters to login url
+                        Log.e("medlogin", "inside getparams method and the email storing in hashmap ");
+                        Map<String, String> params = new HashMap<String, String>();
+                        return params;
+                    }
+
+                };
+
+                // Adding request to request queue
+                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
 
+                Toast.makeText(getApplicationContext(), selplaceid, Toast.LENGTH_SHORT).show();
 
-
-
-
-            Toast.makeText(getApplicationContext(), selplaceid, Toast.LENGTH_SHORT).show();
-
-                                             }
-                                         });
+            }
+        });
 
         listView = (ListView) findViewById(R.id.list);
         //loc=(EditText) findViewById(R.id.location);
@@ -308,7 +311,7 @@ String placedetailurl="https://maps.googleapis.com/maps/api/place/details/json?p
         displayLocation();
 
         // Get listview
-       // ListView lv = getListView();
+        // ListView lv = getListView();
 
         // on seleting single product
         // launching Edit Product Screen
@@ -331,14 +334,23 @@ String placedetailurl="https://maps.googleapis.com/maps/api/place/details/json?p
                 startActivityForResult(in, 100);
             }
         });
-       // loc.setOnClickListener(new View.OnClickListener() {
+        // loc.setOnClickListener(new View.OnClickListener() {
 
-      //      @Override
-      //      public void onClick(View v) {
-      //          togglePeriodicLocationUpdates();
-       //     }
-       // });
+        //      @Override
+        //      public void onClick(View v) {
+        //          togglePeriodicLocationUpdates();
+        //     }
+        // });
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
 
+
+
+
+            }
+        });
 
         detbtn.setOnClickListener(new View.OnClickListener() {
 
@@ -353,13 +365,9 @@ String placedetailurl="https://maps.googleapis.com/maps/api/place/details/json?p
 
             @Override
             public void onClick(View v) {
-               atvPlaces.setText("");
+                atvPlaces.setText("");
             }
         });
-
-
-
-
 
 
         pDialog = new ProgressDialog(this);
@@ -367,6 +375,24 @@ String placedetailurl="https://maps.googleapis.com/maps/api/place/details/json?p
         pDialog.setMessage("Loading...");
         pDialog.show();
 
+    }
+
+
+
+
+
+
+
+
+    public void openDialog() {
+        final Dialog dialog = new Dialog(Viewdoctor.this); // Context, this, etc.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.create();
+        }
+        dialog.setContentView(R.layout.dialog_filter);
+        dialog.setTitle("filter");
+
+        dialog.show();
     }
 
 
