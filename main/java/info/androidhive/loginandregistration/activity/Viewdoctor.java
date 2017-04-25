@@ -43,11 +43,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
@@ -66,6 +68,7 @@ import java.net.URLEncoder;
 //from location act
 
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -104,9 +107,12 @@ import android.widget.SimpleAdapter;
 
 import com.android.volley.toolbox.JsonArrayRequest;
 public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks,
-        OnConnectionFailedListener, LocationListener {
+        OnConnectionFailedListener, LocationListener, Spinner.OnItemSelectedListener {
 
     //from location act
+
+
+
 
 
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
@@ -144,6 +150,8 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
     private Button detbtn;
     private Button filter;
     private Spinner spinner;
+    private ArrayList<String> drop;
+    private JSONArray result;
 
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -204,7 +212,8 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         setContentView(R.layout.activity_viewdoctor);
 
         filter = (Button) findViewById(R.id.filter);
-        //spinner = (Spinner) findViewById(R.id.spinner_spec);
+
+
 
         detbtn = (Button) findViewById(R.id.detbtn);
 
@@ -392,6 +401,11 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
             dialog.create();
         }
         dialog.setContentView(R.layout.dialog_filter);
+
+        drop = new ArrayList<String>();
+        spinner = (Spinner) findViewById(R.id.spinner_spec);
+        spinner.setOnItemSelectedListener(this);
+        getData();
         dialog.setTitle("filter");
 
         dialog.show();
@@ -856,6 +870,16 @@ adapter.clearData();
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
 
     // Fetches all places from GooglePlaces AutoComplete Web Service
     private class PlacesTask extends AsyncTask<String, Void, String>{
@@ -952,6 +976,49 @@ adapter.clearData();
             }
 
         }
+    }
+
+
+
+
+
+    //filter dropdown
+
+    private void getData(){
+        StringRequest stringRequest = new StringRequest(Config.DATA_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject j = null;
+                        try {
+                            j = new JSONObject(response);
+                            result = j.getJSONArray(Config.JSON_ARRAY);
+                            getDrop(result);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void getDrop(JSONArray j){
+        for(int i=0;i<j.length();i++){
+            try {
+                JSONObject json = j.getJSONObject(i);
+                drop.add(json.getString(Config.speciality));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        spinner.setAdapter(new ArrayAdapter<String>(Viewdoctor.this, android.R.layout.simple_spinner_dropdown_item, drop));
     }
 
     //@Override
