@@ -993,6 +993,8 @@ adapter.clearData();
     //filter dropdown
 
     private void getData(){
+        Log.e("medfilter", "code to clear cache is below");
+        AppController.getInstance().getRequestQueue().getCache().remove(Config.DATA_URL);
         StringRequest stringRequest = new StringRequest(Config.DATA_URL,
                 new Response.Listener<String>() {
                     @Override
