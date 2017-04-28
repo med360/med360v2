@@ -61,7 +61,7 @@
                     android:layout_width="85dp"
                     android:layout_height="30dp"
                     android:layout_weight="0.24"
-                    android:text="Speciality"
+                    android:text="Specialty"
                     android:textSize="18sp" />
                 <Space
                     android:layout_width="50dp"

@@ -158,7 +158,6 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
 
     private JSONArray result;
 
-
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -1028,10 +1027,7 @@ adapter.clearData();
                 e.printStackTrace();
             }
         }
-
         spinner_spec.setAdapter(new ArrayAdapter<String>(Viewdoctor.this, simple_spinner_dropdown_item, drop_spec));
-
-
     }
 
     //@Override
