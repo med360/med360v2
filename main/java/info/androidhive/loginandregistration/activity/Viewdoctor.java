@@ -106,6 +106,9 @@ import android.widget.SimpleAdapter;
 
 
 import com.android.volley.toolbox.JsonArrayRequest;
+
+import static android.R.layout.simple_spinner_dropdown_item;
+
 public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks,
         OnConnectionFailedListener, LocationListener, Spinner.OnItemSelectedListener {
 
@@ -397,19 +400,19 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
 
 
     public void openDialog() {
-        final Dialog dialog = new Dialog(Viewdoctor.this); // Context, this, etc.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            dialog.create();
-        }
-        dialog.setContentView(R.layout.dialog_filter);
+        //final Dialog dialog = new Dialog(Viewdoctor.this); // Context, this, etc.
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        //    dialog.create();
+        //}
+       // dialog.setContentView(R.layout.dialog_filter);
 
         drop = new ArrayList<String>();
         spinner = (Spinner) findViewById(R.id.spinner_spec);
         spinner.setOnItemSelectedListener(this);
         getData();
-        dialog.setTitle("filter");
+        //dialog.setTitle("filter");
 
-        dialog.show();
+        //dialog.show();
     }
 
 
@@ -1019,7 +1022,7 @@ adapter.clearData();
                 e.printStackTrace();
             }
         }
-        spinner.setAdapter(new ArrayAdapter<String>(Viewdoctor.this, android.R.layout.simple_spinner_dropdown_item, drop));
+        spinner.setAdapter(new ArrayAdapter<String>(Viewdoctor.this, simple_spinner_dropdown_item, drop));
     }
 
     //@Override
