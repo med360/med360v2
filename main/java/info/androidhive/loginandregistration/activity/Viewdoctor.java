@@ -152,9 +152,12 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
     ParserTask parserTask;
     private Button detbtn;
     private Button filter;
-    private Spinner spinner;
-    private ArrayList<String> drop;
+    private Spinner spinner_spec;
+
+    private ArrayList<String> drop_spec;
+
     private JSONArray result;
+
 
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -406,9 +409,11 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         //}
        // dialog.setContentView(R.layout.dialog_filter);
 
-        drop = new ArrayList<String>();
-        spinner = (Spinner) findViewById(R.id.spinner_spec);
-        spinner.setOnItemSelectedListener(this);
+        drop_spec = new ArrayList<String>();
+
+        spinner_spec = (Spinner) findViewById(R.id.spinner_spec);
+        spinner_spec.setOnItemSelectedListener(this);
+
         getData();
         //dialog.setTitle("filter");
 
@@ -1017,12 +1022,16 @@ adapter.clearData();
         for(int i=0;i<j.length();i++){
             try {
                 JSONObject json = j.getJSONObject(i);
-                drop.add(json.getString(Config.speciality));
+                drop_spec.add(json.getString(Config.specialty));
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        spinner.setAdapter(new ArrayAdapter<String>(Viewdoctor.this, simple_spinner_dropdown_item, drop));
+
+        spinner_spec.setAdapter(new ArrayAdapter<String>(Viewdoctor.this, simple_spinner_dropdown_item, drop_spec));
+
+
     }
 
     //@Override
