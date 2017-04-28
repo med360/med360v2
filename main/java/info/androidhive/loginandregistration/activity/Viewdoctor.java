@@ -153,6 +153,9 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
     private Button detbtn;
     private Button filter;
     private Spinner spinner_spec;
+    private Spinner spinner_nat;
+    private Spinner spinner_gen;
+    private TextView text_fil;
 
     private ArrayList<String> drop_spec;
 
@@ -412,6 +415,12 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
 
         spinner_spec = (Spinner) findViewById(R.id.spinner_spec);
         spinner_spec.setOnItemSelectedListener(this);
+        spinner_nat = (Spinner) findViewById(R.id.spinner_nat);
+        spinner_nat.setOnItemSelectedListener(this);
+        spinner_gen = (Spinner) findViewById(R.id.spinner_gen);
+        spinner_gen.setOnItemSelectedListener(this);
+        text_fil=(TextView) findViewById(R.id.text_fil);
+
 
         getData();
         //dialog.setTitle("filter");
@@ -1030,7 +1039,64 @@ adapter.clearData();
             }
         }
         spinner_spec.setAdapter(new ArrayAdapter<String>(Viewdoctor.this, simple_spinner_dropdown_item, drop_spec));
+
+
+        spinner_spec.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String spec = spinner_spec.getSelectedItem().toString();
+                text_fil.setText(spec);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                text_fil.setText("");
+
+            }
+        });
+
+        spinner_nat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String nat = spinner_nat.getSelectedItem().toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+
+            }
+        });
+
+        spinner_gen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String gen = spinner_gen.getSelectedItem().toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+
+            }
+        });
+
+
     }
+
+
+
+
+
+
+        //Setting the values to textviews for a selected item
+
+
+
+
+
 
     //@Override
   //  public boolean onCreateOptionsMenu(Menu menu) {

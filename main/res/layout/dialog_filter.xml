@@ -141,6 +141,12 @@
                 android:entries="@array/gender"
                 android:layout_weight="0.49" />
         </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_fil"
+                android:layout_width="339dp"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
         </LinearLayout>
 
         <LinearLayout
@@ -172,5 +178,13 @@
 
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reset"
+        tools:layout_editor_absoluteX="199dp"
+        tools:layout_editor_absoluteY="407dp" />
 
 </android.support.constraint.ConstraintLayout>
