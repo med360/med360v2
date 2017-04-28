@@ -355,6 +355,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setContentView(R.layout.dialog_filter);
                 openDialog();
 
 
