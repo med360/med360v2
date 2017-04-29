@@ -177,7 +177,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
                 case R.id.messg:
                     Log.e("medlogin", "before redirecting to new activity on success login");
                     Intent intent2 = new Intent(Viewdoctor.this,
-                            Viewdoctor.class);
+                            ViewBooking.class);
                     startActivity(intent2);
                     finish();
                     return true;

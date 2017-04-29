@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="info.androidhive.loginandregistration.activity.Viewdoctor">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_row_selector"
+        android:padding="8dp" >
+
+        <!-- Thumbnail Image -->
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/bkthumbnail"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="8dp" />
+
+        <!-- Movie Title -->
+        <TextView
+            android:id="@+id/bkdate"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/bkthumbnail"
+            android:layout_toRightOf="@+id/bkthumbnail"
+            android:textSize="@dimen/title"
+            android:text="17/01/2014"
+            android:textStyle="bold" />
+
+        <TextView
+            android:text="Time:"
+            android:textColor="#000000"
+            android:id="@+id/bktime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bkdate"
+            android:layout_marginTop="1dip"
+            android:layout_toRightOf="@+id/bkthumbnail"
+            android:textSize="@dimen/rating" />
+
+        <TextView
+            android:text=""
+            android:layout_marginLeft="10dip"
+            android:textColor="#000000"
+            android:id="@+id/bktimeinfo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bkdate"
+            android:layout_marginTop="1dip"
+            android:layout_toRightOf="@+id/bkpref"
+            android:textSize="@dimen/rating" />
+
+        <!-- Rating -->
+        <TextView
+            android:text="Preferred:"
+            android:textColor="#000000"
+            android:id="@+id/bkpref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bktime"
+            android:layout_marginTop="1dip"
+            android:layout_toRightOf="@+id/bkthumbnail"
+            android:textSize="@dimen/rating" />
+
+        <TextView
+            android:text=""
+            android:layout_marginLeft="10dip"
+            android:textColor="#000000"
+            android:id="@+id/bkprefinfo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bktime"
+            android:layout_marginTop="1dip"
+            android:layout_toRightOf="@+id/bkpref"
+            android:textSize="@dimen/rating" />
+
+        <!-- Genre -->
+        <TextView
+            android:text="Status:"
+
+            android:id="@+id/bkstatus"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bkpref"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/bkthumbnail"
+            android:textColor="#000000"
+            android:textSize="@dimen/rating" />
+
+        <TextView
+            android:text=""
+            android:id="@+id/statusinfo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bkpref"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/genre"
+            android:textSize="@dimen/rating"
+            android:layout_alignLeft="@+id/bkprefinfo"
+            android:layout_alignStart="@+id/bkprefinfo" />
+
+
+        <TextView
+            android:text="Request No:"
+
+            android:id="@+id/bkreqid"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bkstatus"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/bkthumbnail"
+            android:textColor="#000000"
+            android:textSize="@dimen/rating" />
+
+        <TextView
+            android:text=""
+            android:id="@+id/reqid"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bkstatus"
+            android:layout_marginTop="5dp"
+            android:textColor="#000000"
+            android:textSize="@dimen/rating"
+            android:layout_alignLeft="@+id/bkprefinfo"
+            android:layout_alignStart="@+id/bkprefinfo" />
+
+
+        <Button
+            android:id="@+id/bkcancel"
+            android:layout_width="wrap_content"
+       android:layout_alignParentRight="true"
+            android:layout_height="20dip"
+            android:layout_marginTop="10dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:background="#ff0400"
+            android:layout_below="@id/bkreqid"
+            android:text="CANCEL BOOKING"
+            android:textColor="#FFFFFF"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
