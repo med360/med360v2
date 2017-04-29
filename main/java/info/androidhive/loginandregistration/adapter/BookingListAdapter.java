@@ -92,7 +92,10 @@ public class BookingListAdapter extends BaseAdapter {
         TextView prefinfo = (TextView) convertView.findViewById(R.id.bkprefinfo);
         TextView statusinfo = (TextView) convertView.findViewById(R.id.statusinfo);
         TextView reqid = (TextView) convertView.findViewById(R.id.reqid);
-        Button cancelbk = (Button) convertView.findViewById(R.id.bkcancel) ;
+
+        TextView bkhpaddress = (TextView) convertView.findViewById(R.id.bkhpaddress);
+        TextView bkhospitalname=(TextView) convertView.findViewById(R.id.bkhospitalname);
+        TextView bkimagelink = (TextView) convertView.findViewById(R.id.bkimagelink);
 
         // getting movie data for the row
         Appointment m =  bookingItems.get(position);
@@ -104,6 +107,10 @@ public class BookingListAdapter extends BaseAdapter {
         date.setText(m.getDate());
 
 
+
+bkhpaddress.setText(m.getHpaddress());
+        bkhospitalname.setText(m.getHospitalname());
+        bkimagelink.setText(m.getThumbnailUrl());
         timeinfo.setText(""+m.getCtime());
 
 
@@ -113,19 +120,19 @@ public class BookingListAdapter extends BaseAdapter {
         if(stinfo.equals("PENDING")){
 
             statusinfo.setTextColor(Color.parseColor("#ffa800"));
-            cancelbk.setVisibility(View.VISIBLE);
+
         }
             else if(stinfo.equals("CONFIRMED")){
             statusinfo.setTextColor(Color.parseColor("#ffa800"));
-            cancelbk.setVisibility(View.INVISIBLE);
+
             statusinfo.setTextColor(Color.parseColor("#057100"));
         }
         else if(stinfo.equals("REJECTED")){
-            cancelbk.setVisibility(View.INVISIBLE);
+
             statusinfo.setTextColor(Color.parseColor("#ff0000"));
       }
        else if(stinfo.equals("CANCELLED")){
-            cancelbk.setVisibility(View.INVISIBLE);
+
            statusinfo.setTextColor(Color.parseColor("#ff0000"));
         }
 
@@ -134,14 +141,6 @@ public class BookingListAdapter extends BaseAdapter {
         reqid.setText(m.getReqid());
 
         final String requestid=m.getReqid();
-        cancelbk.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-
-
-                ViewBooking obj=new ViewBooking();
-                obj.cancelappointment(requestid);
-            }
-        });
 
 
         return convertView;
@@ -149,14 +148,6 @@ public class BookingListAdapter extends BaseAdapter {
 
 
 
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
 
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
 
 }

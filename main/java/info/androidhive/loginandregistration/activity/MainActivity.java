@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
 				case R.id.messg:
 					Log.e("medlogin", "before redirecting to new activity on success login");
 					Intent intent2 = new Intent(MainActivity.this,
-							Viewdoctor.class);
+							ViewBooking.class);
 					startActivity(intent2);
 					finish();
 					return true;

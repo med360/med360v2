@@ -130,20 +130,38 @@
             android:layout_alignLeft="@+id/bkprefinfo"
             android:layout_alignStart="@+id/bkprefinfo" />
 
-
-        <Button
-            android:id="@+id/bkcancel"
+        <TextView
+            android:id="@+id/bkhpaddress"
             android:layout_width="wrap_content"
-       android:layout_alignParentRight="true"
-            android:layout_height="20dip"
-            android:layout_marginTop="10dip"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:background="#ff0400"
-            android:layout_below="@id/bkreqid"
-            android:text="CANCEL BOOKING"
-            android:textColor="#FFFFFF"
-            android:visibility="invisible"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/year"
+            android:textSize="@dimen/year"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/bkhospitalname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/year"
+            android:textSize="@dimen/year"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/bkimagelink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/year"
+            android:textSize="@dimen/year"
+            android:visibility="gone" />
+
+
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

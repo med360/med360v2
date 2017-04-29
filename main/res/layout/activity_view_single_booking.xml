@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="info.androidhive.loginandregistration.activity.Booking">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:padding="10dp"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.87"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:weightSum="1">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/sbkthumbnail"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+
+                android:layout_marginLeft="100dip"
+                android:layout_marginRight="8dp" />
+
+            <!-- Movie Title -->
+            <TextView
+                android:id="@+id/sbkdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/bkthumbnail"
+                android:layout_toRightOf="@+id/bkthumbnail"
+                android:text="17/01/2014"
+                android:layout_marginTop="10dip"
+                android:textColor="#000000"
+                android:textSize="26dip"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sbktime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sbkdate"
+                android:layout_marginTop="5dip"
+                android:layout_toRightOf="@+id/bkthumbnail"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="22dip" />
+
+            <TextView
+                android:id="@+id/sbkhospital"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sbktime"
+                android:layout_marginTop="5dip"
+                android:layout_toRightOf="@+id/bkthumbnail"
+                android:text=""
+                android:textColor="#000000"
+                android:textSize="22dip" />
+
+            <TextView
+                android:id="@+id/sbkhpaddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sbkhospital"
+                android:layout_marginTop="5dip"
+                android:layout_toRightOf="@+id/bkthumbnail"
+                android:textColor="#000000"
+                android:textSize="16dip" />
+
+            <TextView
+                android:id="@+id/sbkstatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sbkhpaddress"
+                android:layout_marginTop="5dip"
+                android:layout_toRightOf="@+id/bkthumbnail"
+                android:text=""
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="22dip" />
+
+
+            <Button
+                android:id="@+id/bkcancelbtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip"
+                android:background="#FF0000"
+                android:text="CANCEL APPOINTMENT"
+                android:textColor="#FFFFFF"
+                android:visibility="invisible"/>
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="?android:attr/windowBackground"
+                app:menu="@menu/navigation" />
+            <!-- Link to Login Screen -->
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

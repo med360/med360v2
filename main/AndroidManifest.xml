@@ -74,7 +74,8 @@
         <activity
             android:name=".activity.Booking"
             android:exported="true" />
-        <activity android:name=".activity.ViewBooking"></activity>
+        <activity android:name=".activity.ViewBooking" />
+        <activity android:name=".activity.ViewSingleBooking"></activity>
     </application>
 
 </manifest>

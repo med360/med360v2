@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -39,7 +42,7 @@ public class ViewBooking extends AppCompatActivity {
     private SessionManager session;
     private List<Appointment> bookingList = new ArrayList<Appointment>();
     private static final String viewbookurl = "http://azmediame.net/med360/webinterface/api/get_patient_appointment.php";
-    private static final String cancelbookingapi="http://azmediame.net/med360/webinterface/api/appointment_cancel.php";
+
     private ProgressDialog pDialog;
     private ListView listView;
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -102,6 +105,51 @@ public class ViewBooking extends AppCompatActivity {
         adapter = new BookingListAdapter(this, bookingList);
         listView.setAdapter(adapter);
 
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // getting values from selected ListItem
+                String reqid = ((TextView) view.findViewById(R.id.reqid)).getText()
+                        .toString();
+                String bkdate = ((TextView) view.findViewById(R.id.bkdate)).getText()
+                        .toString();
+                String bktimeinfo = ((TextView) view.findViewById(R.id.bktimeinfo)).getText()
+                        .toString();
+                String bkprefinfo = ((TextView) view.findViewById(R.id.bkprefinfo)).getText()
+                        .toString();
+                String bkstatusinfo = ((TextView) view.findViewById(R.id.statusinfo)).getText()
+                        .toString();
+                String bkthumbnail = ((TextView) view.findViewById(R.id.bkimagelink)).getText().toString();
+
+                String hpaddress = ((TextView) view.findViewById(R.id.bkhpaddress)).getText().toString();
+                String hospitalname = ((TextView) view.findViewById(R.id.bkhospitalname)).getText().toString();
+
+                Log.e("hp", "received hp address from listview : "+hpaddress);
+
+                // Starting new intent
+                Intent in = new Intent(getApplicationContext(),
+                        ViewSingleBooking.class);
+                // sending pid to next activity
+                in.putExtra("reqid", reqid);
+                in.putExtra("bkdate", bkdate);
+                in.putExtra("bktimeinfo", bktimeinfo);
+                in.putExtra("bkprefinfo", bkprefinfo);
+                in.putExtra("bkstatusinfo", bkstatusinfo);
+                in.putExtra("bkthumbnail", bkthumbnail);
+                in.putExtra("bkhpaddress", hpaddress);
+                in.putExtra("bkhospitalname", hospitalname);
+
+
+
+
+                // starting new activity and expecting some response back
+                startActivityForResult(in, 100);
+            }
+        });
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
 
@@ -116,71 +164,6 @@ public class ViewBooking extends AppCompatActivity {
     }
 
 
-    public void cancelappointment(final String reqid) {
-        // Tag used to cancel the request
-        String tag_string_req = "req_register";
-
-        Log.e("cancelbook", "in cancelappointment() before post");
-        final String booking_api="http://azmediame.net/med360/webinterface/api/appointment_cancel.php";
-        Log.e("cancelbook", "code to clear cache is below");
-        AppController.getInstance().getRequestQueue().getCache().remove(cancelbookingapi);
-        StringRequest strReq2 = new StringRequest(Request.Method.POST,cancelbookingapi, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.e("bookapp", "Register Response: " + response.toString());
-
-
-                try {
-                    JSONObject jObj = new JSONObject(response);
-
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
-                        // Request stored in MySQL
-
-                     //   Toast.makeText(getApplicationContext(), "Booking Cancelled Successfully", Toast.LENGTH_LONG).show();
-
-                       adapter.notifyDataSetChanged();
-
-                    } else {
-
-                        // Error occurred in registration. Get the error
-                        // message
-                        String errorMsg = jObj.getString("message");
-                     //   Toast.makeText(getApplicationContext(),
-                           //     errorMsg, Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", "Registration Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                // Posting params to register url
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("reqid", reqid);
-
-
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq2, tag_string_req);
-    }
 
 
 
@@ -236,6 +219,12 @@ public class ViewBooking extends AppCompatActivity {
                                 booking.setPrefe(obj.getString("pref"));
                                 booking.setReqid(obj.getString("reqid"));
                                 booking.setStatus(obj.getString("status"));
+                                booking.setHospitalname(obj.getString("hospitalname"));
+                                Log.e("hp", "HP ADDRESS from json: "+obj.getString("hpaddress"));
+                                if(obj.getString("hpaddress")==null){
+                                    String hpaddress="";
+                                    booking.setHpaddress(""+hpaddress);
+                                }else{booking.setHpaddress(""+obj.getString("hpaddress"));}
 
                                 // adding movie to movies array
                                 bookingList.add(booking);
