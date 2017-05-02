@@ -41,13 +41,18 @@ import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -86,6 +91,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -162,6 +168,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
     private Button button_cancel;
     //private Button button_reset;
     int flag=0;
+
 
     public String select="Select";
 
@@ -377,7 +384,9 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 setContentView(R.layout.dialog_filter);
+
                 openDialog();
 
 
@@ -385,6 +394,8 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
 
             }
         });
+
+
 
         detbtn.setOnClickListener(new View.OnClickListener() {
 
@@ -414,7 +425,9 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
 
 
 
-
+    public void openlayout(){
+        setContentView(R.layout.dialog_filter);
+    }
 
 
 
@@ -448,8 +461,12 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
             @Override
             public void onClick(View v) {
 
-                spinner_gen.setSelection(-1);
+                Filtervalues.genvalue="";
                     spinner_spec.setSelection(0);
+                Filtervalues.natvalue="";
+                Intent i = new Intent(Viewdoctor.this, Viewdoctor.class);  //your class
+                startActivity(i);
+                finish();
 
 
 
