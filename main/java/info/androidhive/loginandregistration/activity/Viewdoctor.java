@@ -21,6 +21,7 @@ import info.androidhive.loginandregistration.app.AppConfig;
 import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.app.PlaceJSONParser;
 import info.androidhive.loginandregistration.helper.SessionManager;
+import info.androidhive.loginandregistration.model.Filtervalues;
 import info.androidhive.loginandregistration.model.Movie;
 
 import java.io.IOException;
@@ -159,8 +160,15 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
     private TextView text_fil;
     private Button button_ok;
     private Button button_cancel;
-    private Button button_reset;
+    //private Button button_reset;
     int flag=0;
+
+    public String select="Select";
+
+    public String spec="";
+    public String nat="";
+    public String gen="";
+   // private Filtervalues fv;
 
     private ArrayList<String> drop_spec;
 
@@ -325,6 +333,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         listView = (ListView) findViewById(R.id.list);
         //loc=(EditText) findViewById(R.id.location);
         adapter = new CustomListAdapter(this, movieList);
+
         listView.setAdapter(adapter);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -427,7 +436,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         text_fil=(TextView) findViewById(R.id.text_fil);
         button_ok=(Button) findViewById(R.id.button_ok);
         button_cancel=(Button) findViewById(R.id.button_cancel);
-        button_reset=(Button) findViewById(R.id.button_reset);
+        //button_reset=(Button) findViewById(R.id.button_reset);
 
 
         getData();
@@ -435,34 +444,41 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
 
         //dialog.show();
 
-        button_cancel.setOnClickListener(new View.OnClickListener() {
+      button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Viewdoctor.this, Viewdoctor.class);  //your class
-                startActivity(i);
-                finish();
+
+                spinner_gen.setSelection(-1);
+                    spinner_spec.setSelection(0);
+
+
+
             }
         });
 
-        button_reset.setOnClickListener(new View.OnClickListener() {
+        /*button_reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                spinner_spec.setSelection(0);
                 spinner_nat.setSelection(0);
                 spinner_gen.setSelection(0);
             }
-        });
+        });*/
 
-        View.OnClickListener listener = new View.OnClickListener() {
+        button_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.equals(button_ok))
-                    flag=1;
-                else if (v.equals(button_reset))
-                    flag=2;
+
+                Intent i = new Intent(Viewdoctor.this, Viewdoctor.class);  //your class
+                startActivity(i);
+                finish();
 
             }
-        };
+        });
+
+
+
+
 
 
     }
@@ -606,6 +622,14 @@ adapter.clearData();
             Map<String, String> params = new HashMap<String, String>();
             params.put("latit", latit);
             params.put("longit", longit);
+           // String specv=fv.getSpec();
+                params.put("spec", Filtervalues.specvalue);
+            Log.e("fvalue", "POST SPEC VALUE IS: "+Filtervalues.specvalue);
+            Log.e("fvalue", "POST NAT VALUE IS: "+Filtervalues.natvalue);
+            Log.e("fvalue", "POST GEN VALUE IS: "+Filtervalues.genvalue);
+
+            params.put("nat", Filtervalues.natvalue);
+            params.put("gen", Filtervalues.genvalue);
 
             return params;
         }
@@ -1083,13 +1107,26 @@ adapter.clearData();
         spinner_spec.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String spec = spinner_spec.getSelectedItem().toString();
-                text_fil.setText(spec);
-            }
+
+
+                        spec = spinner_spec.getSelectedItem().toString();
+
+                    if (spec.equals("All"))
+                    { Filtervalues.specvalue="";}
+                else{
+                        Filtervalues.specvalue=spec;
+                    }
+
+
+                        text_fil.setText(Filtervalues.specvalue);
+                    }
+
+
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                text_fil.setText("0");
+                text_fil.setText("");
 
             }
         });
@@ -1097,7 +1134,14 @@ adapter.clearData();
         spinner_nat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String nat = spinner_nat.getSelectedItem().toString();
+                 nat = spinner_nat.getSelectedItem().toString();
+                {
+                    if (nat.equals("Select"))
+                    {Filtervalues.natvalue="";}
+                    else{
+                        Filtervalues.natvalue=nat;
+                    }
+                }
 
             }
 
@@ -1111,7 +1155,15 @@ adapter.clearData();
         spinner_gen.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String gen = spinner_gen.getSelectedItem().toString();
+                 gen = spinner_gen.getSelectedItem().toString();
+                {
+                    if (gen.equals("Select"))
+                    {Filtervalues.genvalue="";}
+                    else{
+                        Filtervalues.genvalue=gen;
+                    }
+
+                }
 
             }
 
@@ -1124,18 +1176,21 @@ adapter.clearData();
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               /* if (view.equals(spinner_spec))
-                    spinner_spec.setSelection(0);
-                if (view.equals(spinner_gen))
-                    spinner_gen.setSelection(0);
-                if (view.equals(spinner_nat))
-                    spinner_nat.setSelection(0);*/
-                if (flag==2)
-                {
-                    spinner_nat.setSelection(0);
-                    spinner_gen.setSelection(0);
-                    spinner_spec.setSelection(0);
+                if (view.equals(spinner_spec)) {
+
                 }
+                if (view.equals(spinner_gen))
+                    gen = spinner_gen.getSelectedItem().toString();
+                if (view.equals(spinner_nat)) {
+                    nat = spinner_nat.getSelectedItem().toString();
+                    nat = "Select";
+                }
+                //if (flag==2)
+                //{
+                  //  spinner_nat.setSelection(0);
+                    //spinner_gen.setSelection(0);
+                    //spinner_spec.setSelection(0);
+                //}
 
             }
 

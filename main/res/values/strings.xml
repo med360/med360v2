@@ -28,13 +28,15 @@
     <string name="btn_get_location">GET MY LOCATION</string>
     <string name="btn_start_location_updates">START LOCATION UPDATES</string>
     <string name="btn_stop_location_updates">STOP LOCATION UPDATES</string>
-
+<string name="prompt">Select</string>
     <string-array name="gender">
+        <item>Select</item>
         <item>Male</item>
         <item>Female</item>
     </string-array>
 
     <string-array name="country_arrays">
+        <item>Select</item>
         <item>Afghanistan</item>
         <item>Aland Islands</item>
         <item>Albania</item>
@@ -288,7 +290,7 @@
     <string name="request_appointment">REQUEST APPOINTMENT</string>
     <string name="textview">TextView</string>
     <string name="agree">Agree</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Reset</string>
     <string name="nationality">Nationality</string>
     <string name="specialty">Specialty</string>
     <string name="reset">reset</string>
@@ -298,5 +300,6 @@
     <string name="profile">Profile</string>
     <string name="blood_group">Blood Group:</string>
     <string name="born_on">Born On:</string>
+    <string name="selsp">Select</string>
 
 </resources>
