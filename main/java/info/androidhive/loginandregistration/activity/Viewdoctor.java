@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -156,6 +157,10 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
     private Spinner spinner_nat;
     private Spinner spinner_gen;
     private TextView text_fil;
+    private Button button_ok;
+    private Button button_cancel;
+    private Button button_reset;
+    int flag=0;
 
     private ArrayList<String> drop_spec;
 
@@ -420,12 +425,46 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         spinner_gen = (Spinner) findViewById(R.id.spinner_gen);
         spinner_gen.setOnItemSelectedListener(this);
         text_fil=(TextView) findViewById(R.id.text_fil);
+        button_ok=(Button) findViewById(R.id.button_ok);
+        button_cancel=(Button) findViewById(R.id.button_cancel);
+        button_reset=(Button) findViewById(R.id.button_reset);
 
 
         getData();
         //dialog.setTitle("filter");
 
         //dialog.show();
+
+        button_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Viewdoctor.this, Viewdoctor.class);  //your class
+                startActivity(i);
+                finish();
+            }
+        });
+
+        button_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               spinner_spec.setSelection(0);
+                spinner_nat.setSelection(0);
+                spinner_gen.setSelection(0);
+            }
+        });
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(v.equals(button_ok))
+                    flag=1;
+                else if (v.equals(button_reset))
+                    flag=2;
+
+            }
+        };
+
+
     }
 
 
@@ -1050,7 +1089,7 @@ adapter.clearData();
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                text_fil.setText("");
+                text_fil.setText("0");
 
             }
         });
@@ -1082,7 +1121,29 @@ adapter.clearData();
 
             }
         });
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               /* if (view.equals(spinner_spec))
+                    spinner_spec.setSelection(0);
+                if (view.equals(spinner_gen))
+                    spinner_gen.setSelection(0);
+                if (view.equals(spinner_nat))
+                    spinner_nat.setSelection(0);*/
+                if (flag==2)
+                {
+                    spinner_nat.setSelection(0);
+                    spinner_gen.setSelection(0);
+                    spinner_spec.setSelection(0);
+                }
 
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
 
     }
 
