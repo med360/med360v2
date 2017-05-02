@@ -61,7 +61,7 @@ public class ViewBooking extends AppCompatActivity {
                 case R.id.messg:
                     Log.e("medlogin", "before redirecting to new activity on success login");
                     Intent intent2 = new Intent(ViewBooking.this,
-                            Viewdoctor.class);
+                            ViewBooking.class);
                     startActivity(intent2);
                     finish();
                     return true;

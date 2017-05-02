@@ -135,7 +135,10 @@ bkhpaddress.setText(m.getHpaddress());
 
            statusinfo.setTextColor(Color.parseColor("#ff0000"));
         }
+        else if(stinfo.equals("COMPLETED")){
 
+            statusinfo.setTextColor(Color.parseColor("#000000"));
+        }
             statusinfo.setText(m.getStatus());
         // doctor id
         reqid.setText(m.getReqid());
