@@ -270,7 +270,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
                 String selplaceid = hm.get("placeid");
                 Log.e("gplaces", "the id of the selected place is: " + selplaceid);
                 atvPlaces.setText(str);
-                String api_key = "AIzaSyB23yTJ6rI0HPYLw1LBXRI4duiQscXhEx0";
+                String api_key = "AIzaSyCosVCWyG-RYHmY4kGvSe2r5mFnpn9qwgA";
                 String placedetailurl = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + selplaceid + "&key=" + api_key + "";
 
                 Log.e("placedetail", "code to clear cache is below");
@@ -574,8 +574,8 @@ adapter.clearData();
                             Movie movie = new Movie();
                             movie.setTitle(obj.getString("name"));
                             movie.setThumbnailUrl(obj.getString("image"));
-                            movie.setRating(((Number) obj.getDouble("rating")).doubleValue());
-                            movie.setYear(obj.getString("add"));
+                            movie.setHpname(obj.getString("hpname"));
+                            movie.setHpadd(obj.getString("add"));
                             movie.setGenre(obj.getString("specialit"));
                             movie.setDid(obj.getString("did"));
 
@@ -970,7 +970,7 @@ adapter.clearData();
             String data = "";
 
             // Obtain browser key from https://code.google.com/apis/console
-            String key = "key=AIzaSyB23yTJ6rI0HPYLw1LBXRI4duiQscXhEx0";
+            String key = "key=AIzaSyCosVCWyG-RYHmY4kGvSe2r5mFnpn9qwgA";
 
             String input="";
 

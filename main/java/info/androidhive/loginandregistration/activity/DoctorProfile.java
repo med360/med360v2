@@ -50,6 +50,8 @@ public class DoctorProfile extends Activity {
     private TextView txtspcl;
     private TextView txtdoctornationality;
     private TextView txtgender;
+    private TextView txtdoctorhp;
+    private TextView txtdoctorhpadd;
     private NetworkImageView thumbNail;
     private Button btnbook;
 
@@ -112,6 +114,8 @@ public class DoctorProfile extends Activity {
         txtdoctornationality= (TextView) findViewById(R.id.doctornationality);
         txtgender = (TextView) findViewById(R.id.doctorgender);
         txtspcl = (TextView) findViewById(R.id.doctorspcl);
+       txtdoctorhp = (TextView) findViewById(R.id.doctorhp);
+        txtdoctorhpadd = (TextView) findViewById(R.id.doctorhpadd);
 
         btnbook = (Button) findViewById(R.id.btnbook);
 
@@ -180,12 +184,15 @@ public class DoctorProfile extends Activity {
                         String did = doctor.getString("did");
                         String gender = doctor.getString("gender");
                         String image = doctor.getString("image");
+                        String hpname = doctor.getString("hpname");
+                        String hpaddress = doctor.getString("hpaddress");
 
                     txtName.setText(name);
                         txtdoctornationality.setText(nationality);
                         txtgender.setText(gender);
                         txtspcl.setText(speciality);
-
+txtdoctorhp.setText(hpname);
+                        txtdoctorhpadd.setText(hpaddress);
 
 
 

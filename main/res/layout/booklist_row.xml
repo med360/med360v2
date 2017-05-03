@@ -125,10 +125,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/bkstatus"
             android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
             android:textColor="#000000"
             android:textSize="@dimen/rating"
-            android:layout_alignLeft="@+id/bkprefinfo"
-            android:layout_alignStart="@+id/bkprefinfo" />
+            android:layout_toRightOf="@+id/bkdate"
+            android:layout_toEndOf="@+id/bkdate" />
 
         <TextView
             android:id="@+id/bkhpaddress"

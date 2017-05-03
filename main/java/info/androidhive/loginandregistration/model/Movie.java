@@ -11,18 +11,22 @@ public class Movie {
     private String year;
     private double rating;
     private String genre;
+    private String hpadd;
+    private String hpname;
     private String did;
     public Movie() {
     }
 
     public Movie(String did,String name, String thumbnailUrl, String year, double rating,
-                 String genre) {
+                 String genre, String hpadd, String hpname) {
         this.title = name;
         this.thumbnailUrl = thumbnailUrl;
         this.year = year;
         this.rating = rating;
         this.genre = genre;
         this.did=did;
+        this.hpadd=hpadd;
+        this.hpname=hpname;
     }
 
     public String getTitle() {
@@ -32,6 +36,26 @@ public class Movie {
     public void setTitle(String name) {
         this.title = name;
     }
+
+
+    public String getHpadd() {
+        return hpadd;
+    }
+
+    public void setHpadd(String hpadd) {
+        this.hpadd = hpadd;
+    }
+
+    public String getHpname() {
+        return hpname;
+    }
+
+    public void setHpname(String hpname) {
+        this.hpname = hpname;
+    }
+
+
+
 
     public String getThumbnailUrl() {
         return thumbnailUrl;
