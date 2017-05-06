@@ -13,10 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +33,7 @@ import info.androidhive.loginandregistration.app.AppConfig;
 import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 import info.androidhive.loginandregistration.helper.SessionManager;
+import info.androidhive.loginandregistration.helper.SharedPrefManager;
 
 public class RegisterActivity extends Activity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
@@ -38,6 +43,7 @@ public class RegisterActivity extends Activity {
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
+    private ProgressDialog progressDialog;
     private SessionManager session;
     private SQLiteHandler db;
     public static String utype;
@@ -142,7 +148,8 @@ public class RegisterActivity extends Activity {
                                 .getString("created_at");
                          userid = user.getString("userid");
 
-                        // Inserting row in users table
+                        Log.e("medlogin", "Before sendtokentoserver()");
+                        sendTokenToServer(email);
 
 
                         Toast.makeText(getApplicationContext(), "Please Provide Your Profile Details", Toast.LENGTH_LONG).show();
@@ -202,5 +209,58 @@ public class RegisterActivity extends Activity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+
+
+    //storing token to mysql server
+    private void sendTokenToServer(final String email) {
+        Log.e("sendtoken", "inside sendtokentoserver()");
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Registering Device...");
+        progressDialog.show();
+        final String tokenapi="http://azmediame.net/med360/webinterface/push/new/RegisterDevice.php";
+
+        final String token = SharedPrefManager.getInstance(this).getDeviceToken();
+
+
+        if (token == null) {
+            progressDialog.dismiss();
+            Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, tokenapi,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("sendtoken", "sendtoken api response: "+response);
+                        progressDialog.dismiss();
+                        try {
+                            JSONObject obj = new JSONObject(response);
+                            Toast.makeText(RegisterActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(RegisterActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("token", token);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
