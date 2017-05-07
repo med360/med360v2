@@ -2,7 +2,6 @@
 <resources>
 
 
-
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="str_atv_places">Enter Place Here</string>
@@ -30,7 +29,7 @@
     <string name="btn_get_location">GET MY LOCATION</string>
     <string name="btn_start_location_updates">START LOCATION UPDATES</string>
     <string name="btn_stop_location_updates">STOP LOCATION UPDATES</string>
-<string name="prompt">Select</string>
+    <string name="prompt">Select</string>
     <string-array name="gender">
         <item>Select</item>
         <item>Male</item>
