@@ -111,12 +111,14 @@ get_all_markers(googleMap);
                                 Double lat=obj.getDouble("latitude");
                                 Double lng=obj.getDouble("longitude");
                                 String hpname=obj.getString("hospitalname");
+                                String dname=obj.getString("dname");
                                 Log.e("getmarkers", "latitude is :"+lat+" longitude is: "+lng);
 
                                LatLng hp = new LatLng(lat,lng);
+                                mMap.setMaxZoomPreference(14);
                                 mMap.addMarker(new MarkerOptions()
                                         .position(hp)
-                                        .title(hpname));
+                                        .title(dname));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLng(hp));
                             } catch (JSONException e) {
                                 e.printStackTrace();

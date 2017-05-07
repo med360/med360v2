@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +20,7 @@ import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 import info.androidhive.loginandregistration.helper.SessionManager;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity{
 
 	private TextView txtName;
 	private TextView txtEmail;
@@ -73,7 +75,17 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_bottom);
+		toolbarBottom.inflateMenu(R.menu.navigation);
+		toolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem menuItem) {
+				//your code
 
+
+				return false;
+			}
+		});
 		txtName = (TextView) findViewById(R.id.name);
 		txtEmail = (TextView) findViewById(R.id.email);
 		btnLogout = (Button) findViewById(R.id.btnLogout);
