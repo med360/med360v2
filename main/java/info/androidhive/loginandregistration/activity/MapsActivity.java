@@ -4,9 +4,11 @@ package info.androidhive.loginandregistration.activity;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,14 +20,21 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.app.AppController;
+import info.androidhive.loginandregistration.model.Filtervalues;
+import info.androidhive.loginandregistration.model.Movie;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
 
 
-
+private String url="http://azmediame.net/med360/webinterface/api/get_markers.php";
     private GoogleMap mMap;
 
     @Override
@@ -52,70 +61,117 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-
-
-
-
-
-        mMap = googleMap;
-
-        LatLng NMC = new LatLng(25.29000,55.3692);
-        LatLng alzahra = new LatLng (25.1058,55.1806);
-        LatLng Zulekha = new LatLng(25.3688,55.4047);
-        LatLng Aster = new LatLng(25.3886,55.4609);
-        LatLng MedCare = new LatLng(25.1833,55.2427);
-        LatLng Universal = new LatLng(24.4598,54.3791);
-        LatLng Brightpoint = new LatLng(24.4524, 54.3933);
-
-
-        mMap.addMarker(new MarkerOptions()
-                .position(NMC)
-                .title("New Medical Center"));
-
-        mMap.addMarker(new MarkerOptions()
-                .position(alzahra)
-                .title("Al Zahra Hospital"));
-
-        mMap.addMarker(new MarkerOptions()
-                .position(Zulekha)
-                .title("Zulekha Hospital"));
-
-        mMap.addMarker(new MarkerOptions()
-                .position(Aster)
-                .title("Aster Medical Center"));
-
-        mMap.addMarker(new MarkerOptions()
-                .position(MedCare)
-                .title("Medcare Hospital"));
-
-        mMap.addMarker(new MarkerOptions()
-                .position(Universal)
-                .title("Universal Hospital"));
-
-        mMap.addMarker(new MarkerOptions()
-                .position(Brightpoint)
-                .title("Brightpoint Royal Women Hospital"));
-
-
-
-
-
-
-
-
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(NMC));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(alzahra));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(Zulekha));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(Aster));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(MedCare));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(Universal));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(Brightpoint));
-
-
+get_all_markers(googleMap);
 
 
     }
+
+
+
+
+
+    public void get_all_markers(GoogleMap googleMap){
+        Log.e("dsp", "before volley request");
+        // changing action bar color
+        mMap = googleMap;
+
+        // Creating volley request obj
+        String tag_string_req = "req_login";
+        Log.e("medlogin", "code to clear cache is below");
+        AppController.getInstance().getRequestQueue().getCache().remove(url);
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+
+                    Log.e("dsp", "inside onresponse");
+
+
+
+
+
+                    JSONObject jObj = new JSONObject(response);
+                    boolean success = jObj.getBoolean("success");
+
+
+                    if (success) {
+
+                        JSONArray doctorarray = jObj.getJSONArray("doctor");
+
+
+                        Log.e("dsp", "inside onresponse: " + doctorarray);
+// Parsing json
+                        for (int i = 0; i < doctorarray.length(); i++) {
+                            try {
+                                Log.e("dsp", "inside response loop");
+                                JSONObject obj = doctorarray.getJSONObject(i);
+                                Double lat=obj.getDouble("latitude");
+                                Double lng=obj.getDouble("longitude");
+                                String hpname=obj.getString("hospitalname");
+                                Log.e("getmarkers", "latitude is :"+lat+" longitude is: "+lng);
+
+                               LatLng hp = new LatLng(lat,lng);
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(hp)
+                                        .title(hpname));
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(hp));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }else {
+                        // Error in login. Get the error message
+                        Log.e("medlogin", "error in listing doctor");
+                        String errorMsg = jObj.getString("message");
+
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", "Doctor receive Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+
+            }
+
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Log.e("medlogin", "inside getparams method ");
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("latit", "");
+                params.put("longit", "");
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+
+
+
+
+
+
 
 }
 
