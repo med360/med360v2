@@ -303,5 +303,6 @@
     <string name="born_on">Born On:</string>
     <string name="selsp">Select</string>
     <string name="apply">APPLY</string>
+    <string name="address">Address</string>
 
 </resources>

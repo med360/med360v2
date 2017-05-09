@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,23 +61,29 @@ public class Register2Activity extends Activity {
     private Button btnRegister;
     private Button btnLinkToLogin;
     private EditText inputFullName;
-    private EditText inputnationality;
+   // private EditText inputnationality;
     private Spinner inputgender;
     private EditText inputdob;
     private Spinner inputbgp;
+    private CheckBox checkbgp;
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
-
+    int flag;
+    private Spinner nationality;
+    private EditText address;
 
 
     private DatePicker datePicker;
     private Calendar calendar;
     private EditText dateView;
-    private TextView nationalityview;
+   // private TextView nationalityview;
     private int year, month, day;
     public String countrysel;
     private Context con;
+    private String donateblood;
+  //  private String nation;
+    private String add;
 
     Spinner spnr,spinbgp;
 
@@ -104,16 +111,24 @@ public class Register2Activity extends Activity {
         setContentView(R.layout.activity_register2);
 
         inputFullName = (EditText) findViewById(R.id.name);
-        inputnationality = (EditText) findViewById(R.id.national);
+
         inputgender = (Spinner) findViewById(R.id.gender);
         inputdob = (EditText) findViewById(R.id.dob);
         inputbgp = (Spinner) findViewById(R.id.bgp);
         btnRegister = (Button) findViewById(R.id.btnRegister);
-
+        checkbgp = (CheckBox) findViewById(R.id.bloodgroup);
+        nationality = (Spinner) findViewById(R.id.national);
+        address = (EditText) findViewById(R.id.address);
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
+
+        //blood group check box
+        if(checkbgp.isChecked())
+            flag=1;
+        else
+            flag=0;
 
         // Session manager
         session = new SessionManager(getApplicationContext());
@@ -134,14 +149,17 @@ public class Register2Activity extends Activity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                  String name = inputFullName.getText().toString().trim();
-                String nationality = inputnationality.getText().toString().trim();
+               // String nationality = inputnationality.getText().toString().trim();
                 String gender = inputgender.getSelectedItem().toString().trim();
                 String dob = inputdob.getText().toString().trim();
                 String bgp = inputbgp.getSelectedItem().toString().trim();
+                donateblood = Integer.toString(flag).trim();
+               String nation = nationality.getSelectedItem().toString().trim();
+                add = address.getText().toString().trim();
 
 
-                if (!name.isEmpty() && !nationality.isEmpty() && !gender.isEmpty() && !dob.isEmpty()&& !bgp.isEmpty()) {
-                    createProfile(name, nationality, gender, dob, bgp);
+                if (!name.isEmpty() && !nation.isEmpty() && !gender.isEmpty() && !add.isEmpty() && !dob.isEmpty()&& !bgp.isEmpty()) {
+                    createProfile(name, nation, gender, dob, bgp);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -175,6 +193,12 @@ public class Register2Activity extends Activity {
                 }
         );
 
+        nationality.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
 
         spinbgp = (Spinner)findViewById(R.id.bgp);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(
@@ -203,7 +227,7 @@ public class Register2Activity extends Activity {
 
 
         dateView = (EditText) findViewById(R.id.dob);
-        nationalityview = (TextView) findViewById(R.id.national);
+        //nationalityview = (TextView) findViewById(R.id.national);
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
 
@@ -221,7 +245,7 @@ public class Register2Activity extends Activity {
 
 
 
-    private void createProfile(final String name, final String nationality, final String gender, final String dob, final String bgp) {
+    private void createProfile(final String name, final String nation, final String gender, final String dob, final String bgp) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -286,11 +310,13 @@ public class Register2Activity extends Activity {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("name", name);
-                params.put("nationality", nationality);
+                params.put("nationality", nation);
                 params.put("gender", gender);
                 params.put("dob", dob);
                 params.put("bgp", bgp);
                 params.put("userid", RegisterActivity.userid);
+                params.put("donateblood", donateblood);
+                params.put("address", add);
 
 
                 return params;
@@ -347,6 +373,7 @@ public class Register2Activity extends Activity {
         String bgp= inputbgp.getSelectedItem().toString().trim();
         inputFullName = (EditText) findViewById(R.id.name);
         inputFullName.setText(bgp +" " +gender);
+
     }
 
 

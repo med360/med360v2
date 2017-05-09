@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity{
 		String dob = user.get("dob");
 		String nationality = user.get("nationality");
 		String blood = user.get("blood");
+
 		Log.e("medlogin", "all details fetched from hashmap and now displaying on text fields begin");
 		// Displaying the user details on the screen
 		txtName.setText(name);

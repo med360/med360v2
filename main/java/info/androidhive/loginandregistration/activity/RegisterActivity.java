@@ -139,7 +139,7 @@ public class RegisterActivity extends Activity {
                     if (!error) {
                         // User successfully stored in MySQL
                         // Now store the user in sqlite
-                        String uid = jObj.getString("uid");
+                    //    String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
 
