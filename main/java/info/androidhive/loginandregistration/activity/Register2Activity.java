@@ -70,7 +70,7 @@ public class Register2Activity extends Activity {
     private SessionManager session;
     private SQLiteHandler db;
     int flag;
-    private Spinner nationality;
+    private Spinner inputnationality;
     private EditText address;
 
 
@@ -82,10 +82,10 @@ public class Register2Activity extends Activity {
     public String countrysel;
     private Context con;
     private String donateblood;
-  //  private String nation;
+    private String nation;
     private String add;
 
-    Spinner spnr,spinbgp;
+    Spinner spnr,spinbgp, spinnat;
 
     String[] gender = {
             "Male",
@@ -105,6 +105,250 @@ public class Register2Activity extends Activity {
 
     };
 
+    String[] nat = {
+
+        "Afghanistan",
+    " Aland Islands",
+        "Albania",
+        "Algeria",
+    " American Samoa",
+        "Andorra",
+        "Angola",
+        "Anguilla",
+        "Antarctica",
+    " Antigua and Barbuda",
+        "Argentina",
+        "Armenia",
+        "Aruba",
+        "Australia",
+        "Austria",
+        "Azerbaijan",
+        "Bahrain",
+        "Bangladesh",
+        "Barbados",
+        "Belarus",
+        "Belgium",
+        "Belize",
+        "Benin",
+        "Bermuda",
+        "Bhutan",
+        "Bolivia",
+    " Bosnia and Herzegovina",
+        "Botswana",
+    " Bouvet Island",
+        "Brazil",
+    " British Indian Ocean Territory",
+    " British Virgin Islands",
+        "Brunei",
+        "Bulgaria",
+    " Burkina Faso",
+        "Burundi",
+        "Cambodia",
+        "Cameroon",
+        "Canada",
+    " Cape Verde",
+    " Cayman Islands",
+    " Central African Republic",
+        "Chad",
+        "Chile",
+        "China",
+    " Christmas Island",
+
+     "Cocos(Keeling) Islands",
+        "Colombia",
+        "Comoros",
+        "Congo",
+    " Cook Islands",
+    " Costa Rica",
+    " Cote d'Ivoire",
+        "Croatia",
+        "Cuba",
+        "Cyprus",
+    " Czech Republic",
+    " Democratic Republic of the Congo",
+        "Denmark",
+        "Djibouti",
+        "Dominica",
+    " Dominican Republic",
+    " East Timor",
+        "Ecuador",
+        "Egypt",
+    " El Salvador",
+    " Equatorial Guinea",
+        "Eritrea",
+        "Estonia",
+        "Ethiopia",
+    " Faeroe Islands",
+    " Falkland Islands",
+        "Fiji",
+        "Finland",
+    " Former Yugoslav Republic of Macedonia",
+        "France",
+    " French Guiana",
+    " French Polynesia",
+    " French Southern Territories",
+        "Gabon",
+        "Georgia",
+        "Germany",
+        "Ghana",
+        "Gibraltar",
+        "Greece",
+        "Greenland",
+        "Grenada",
+        "Guadeloupe",
+        "Guam",
+        "Guatemala",
+        "Guinea",
+        "Guinea-Bissau",
+        "Guyana",
+        "Haiti",
+    " Heard Island and McDonald Islands",
+        "Honduras",
+    " Hong Kong",
+        "Hungary",
+        "Iceland",
+        "India",
+        "Indonesia",
+        "Iran",
+        "Iraq",
+        "Ireland",
+        "Israel",
+        "Italy",
+        "Jamaica",
+        "Japan",
+        "Jordan",
+        "Kazakhstan",
+        "Kenya",
+        "Kiribati",
+        "Kuwait",
+        "Kyrgyzstan",
+        "Laos",
+        "Latvia",
+        "Lebanon",
+        "Lesotho",
+        "Liberia",
+        "Libya",
+        "Liechtenstein",
+        "Lithuania",
+        "Luxembourg",
+        "Macau",
+        "Madagascar",
+        "Malawi",
+        "Malaysia",
+        "Maldives",
+        "Mali",
+        "Malta",
+    " Marshall Islands",
+        "Martinique",
+        "Mauritania",
+        "Mauritius",
+        "Mayotte",
+        "Mexico",
+        "Micronesia",
+        "Moldova",
+        "Monaco",
+        "Mongolia",
+        "Montserrat",
+        "Morocco",
+        "Mozambique",
+        "Myanmar",
+        "Namibia",
+        "Nauru",
+        "Nepal",
+        "Netherlands",
+    " Netherlands Antilles",
+    " New Caledonia",
+    " New Zealand",
+        "Nicaragua",
+        "Niger",
+        "Nigeria",
+        "Niue",
+    " Norfolk Island",
+    " North Korea",
+    " Northern Marianas",
+        "Norway",
+        "Oman",
+        "Pakistan",
+        "Palau",
+        "Panama",
+    " Papua New Guinea",
+        "Paraguay",
+        "Peru",
+        "Philippines",
+    " Pitcairn Islands",
+        "Poland",
+        "Portugal",
+    " Puerto Rico",
+        "Qatar",
+        "Reunion",
+        "Romania",
+        "Russia",
+        "Rwanda",
+    " Sqo Tome and Principe",
+    " Saint Helena",
+    " Saint Kitts and Nevis",
+    " Saint Lucia",
+    " Saint Pierre and Miquelon",
+    " Saint Vincent and the Grenadines",
+        "Samoa",
+    " San Marino",
+    " Saudi Arabia",
+        "Senegal",
+        "Seychelles",
+    " Sierra Leone",
+        "Singapore",
+        "Slovakia",
+        "Slovenia",
+    " Solomon Islands",
+        "Somalia",
+    " South Africa",
+    " South Georgia and the South Sandwich Islands",
+    " South Korea",
+        "Spain",
+    " Sri Lanka",
+        "Sudan",
+        "Suriname",
+    " Svalbard and Jan Mayen",
+        "Swaziland",
+        "Sweden",
+        "Switzerland",
+        "Syria",
+        "Taiwan",
+        "Tajikistan",
+        "Tanzania",
+        "Thailand",
+    " The Bahamas",
+    " The Gambia",
+        "Togo",
+        "Tokelau",
+        "Tonga",
+    " Trinidad and Tobago",
+        "Tunisia",
+        "Turkey",
+        "Turkmenistan",
+    " Turks and Caicos Islands",
+        "Tuvalu",
+    " Virgin Islands",
+        "Uganda",
+        "Ukraine",
+    " United Arab Emirates",
+    " United Kingdom",
+    " United States",
+    " United States Minor Outlying Islands",
+        "Uruguay",
+        "Uzbekistan",
+        "Vanuatu",
+    " Vatican City",
+        "Venezuela",
+        "Vietnam",
+    " Wallis and Futuna",
+    " Western Sahara",
+        "Yemen",
+        "Yugoslavia",
+        "Zambia",
+        "Zimbabwe",
+};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +361,7 @@ public class Register2Activity extends Activity {
         inputbgp = (Spinner) findViewById(R.id.bgp);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         checkbgp = (CheckBox) findViewById(R.id.bloodgroup);
-        nationality = (Spinner) findViewById(R.id.national);
+        inputnationality = (Spinner) findViewById(R.id.national);
         address = (EditText) findViewById(R.id.address);
 
         // Progress dialog
@@ -154,19 +398,22 @@ public class Register2Activity extends Activity {
                 String dob = inputdob.getText().toString().trim();
                 String bgp = inputbgp.getSelectedItem().toString().trim();
                 donateblood = Integer.toString(flag).trim();
-               String nation = nationality.getSelectedItem().toString().trim();
+                String nationality = inputnationality.getSelectedItem().toString().trim();
                 add = address.getText().toString().trim();
 
 
-                if (!name.isEmpty() && !nation.isEmpty() && !gender.isEmpty() && !add.isEmpty() && !dob.isEmpty()&& !bgp.isEmpty()) {
-                    createProfile(name, nation, gender, dob, bgp);
+                if (!name.isEmpty() && !nationality.isEmpty() && !gender.isEmpty() && !add.isEmpty() && !dob.isEmpty()&& !bgp.isEmpty()) {
+                    createProfile(name, nationality, gender, dob, bgp);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
                             .show();
+
                 }
             }
         });
+
+
 
         spnr = (Spinner)findViewById(R.id.gender);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -193,12 +440,22 @@ public class Register2Activity extends Activity {
                 }
         );
 
-        nationality.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinnat = (Spinner) findViewById(R.id.national);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, nat);
+        spinnat.setAdapter(adapter3);
+        spinnat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                int position = spinnat.getSelectedItemPosition();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
 
             }
         });
+
 
         spinbgp = (Spinner)findViewById(R.id.bgp);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(
@@ -245,7 +502,7 @@ public class Register2Activity extends Activity {
 
 
 
-    private void createProfile(final String name, final String nation, final String gender, final String dob, final String bgp) {
+    private void createProfile(final String name, final String nationality, final String gender, final String dob, final String bgp) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -310,7 +567,7 @@ public class Register2Activity extends Activity {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("name", name);
-                params.put("nationality", nation);
+                params.put("nationality", nationality);
                 params.put("gender", gender);
                 params.put("dob", dob);
                 params.put("bgp", bgp);
