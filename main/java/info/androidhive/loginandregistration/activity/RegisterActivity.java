@@ -43,7 +43,7 @@ public class RegisterActivity extends Activity {
     private EditText inputEmail;
     private EditText inputPassword;
     private ProgressDialog pDialog;
-    private ProgressDialog progressDialog;
+    //private ProgressDialog progressDialog1;
     private SessionManager session;
     private SQLiteHandler db;
     public static String utype;
@@ -216,16 +216,16 @@ public class RegisterActivity extends Activity {
     //storing token to mysql server
     private void sendTokenToServer(final String email) {
         Log.e("sendtoken", "inside sendtokentoserver()");
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Registering Device...");
-        progressDialog.show();
+        //progressDialog1 = new ProgressDialog(this);
+        //progressDialog1.setMessage("Registering Device...");
+        //progressDialog1.show();
         final String tokenapi="http://azmediame.net/med360/webinterface/push/new/RegisterDevice.php";
 
         final String token = SharedPrefManager.getInstance(this).getDeviceToken();
 
 
         if (token == null) {
-            progressDialog.dismiss();
+            //progressDialog1.dismiss();
             Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
             return;
         }
@@ -235,7 +235,7 @@ public class RegisterActivity extends Activity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("sendtoken", "sendtoken api response: "+response);
-                        progressDialog.dismiss();
+                       // progressDialog1.dismiss();
                         try {
                             JSONObject obj = new JSONObject(response);
                             Toast.makeText(RegisterActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
@@ -247,7 +247,7 @@ public class RegisterActivity extends Activity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
+                        //progressDialog1.dismiss();
                         Toast.makeText(RegisterActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {

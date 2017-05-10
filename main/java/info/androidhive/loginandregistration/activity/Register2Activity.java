@@ -69,7 +69,7 @@ public class Register2Activity extends Activity {
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
-    int flag;
+
     private Spinner inputnationality;
     private EditText address;
 
@@ -81,9 +81,9 @@ public class Register2Activity extends Activity {
     private int year, month, day;
     public String countrysel;
     private Context con;
-    private String donateblood;
+    //private String donateblood;
     private String nation;
-    private String add;
+   // private String add;
 
     Spinner spnr,spinbgp, spinnat;
 
@@ -368,11 +368,7 @@ public class Register2Activity extends Activity {
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        //blood group check box
-        if(checkbgp.isChecked())
-            flag=1;
-        else
-            flag=0;
+
 
         // Session manager
         session = new SessionManager(getApplicationContext());
@@ -392,18 +388,31 @@ public class Register2Activity extends Activity {
         // Register Button Click event
         btnRegister.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+
+                int flag=0;
+                Log.e("reg2", "flag initial value set to : "+flag);
+
+                //blood group check box
+                if(checkbgp.isChecked()){
+                    flag=1;
+                    Log.e("reg2", "inside cbchecktrue - flag is : "+flag);}
+
+
                  String name = inputFullName.getText().toString().trim();
                // String nationality = inputnationality.getText().toString().trim();
                 String gender = inputgender.getSelectedItem().toString().trim();
                 String dob = inputdob.getText().toString().trim();
                 String bgp = inputbgp.getSelectedItem().toString().trim();
-                donateblood = Integer.toString(flag).trim();
+                String donate = Integer.toString(flag).trim();
                 String nationality = inputnationality.getSelectedItem().toString().trim();
-                add = address.getText().toString().trim();
+                String addr = address.getText().toString().trim();
 
 
-                if (!name.isEmpty() && !nationality.isEmpty() && !gender.isEmpty() && !add.isEmpty() && !dob.isEmpty()&& !bgp.isEmpty()) {
-                    createProfile(name, nationality, gender, dob, bgp);
+
+
+
+                if (!name.isEmpty() && !nationality.isEmpty() && !gender.isEmpty() && !addr.isEmpty() && !dob.isEmpty()&& !bgp.isEmpty()) {
+                    createProfile(name, nationality, gender, dob, bgp,addr,donate);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -502,13 +511,15 @@ public class Register2Activity extends Activity {
 
 
 
-    private void createProfile(final String name, final String nationality, final String gender, final String dob, final String bgp) {
+    private void createProfile(final String name, final String nationality, final String gender, final String dob, final String bgp,final String add,final String donateblood) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
         pDialog.setMessage("Registering ...");
         showDialog();
         Log.e("medlogin", "in register2activity before post");
+        Log.e("medlogin", "code to clear cache is below");
+        AppController.getInstance().getRequestQueue().getCache().remove(AppConfig.URL_REGISTER2);
         StringRequest strReq2 = new StringRequest(Request.Method.POST,
                 AppConfig.URL_REGISTER2, new Response.Listener<String>() {
 
@@ -519,8 +530,7 @@ public class Register2Activity extends Activity {
 
                 try {
                     JSONObject jObj = new JSONObject(response);
-                    Log.e("medlogin", "code to clear cache is below");
-                    AppController.getInstance().getRequestQueue().getCache().remove(AppConfig.URL_REGISTER2);
+
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
                         // User successfully stored in MySQL
@@ -566,6 +576,13 @@ public class Register2Activity extends Activity {
             protected Map<String, String> getParams() {
                 // Posting params to register url
                 Map<String, String> params = new HashMap<String, String>();
+                Log.e("reg2", "inside params() - nationality: "+nationality);
+                Log.e("reg2", "inside params() - donateblood: "+donateblood);
+                Log.e("reg2", "inside params() - address: "+add);
+                Log.e("reg2", "inside params() - name: "+name);
+                Log.e("reg2", "inside params() - blood: "+bgp);
+                Log.e("reg2", "inside params() - gender: "+gender);
+                Log.e("reg2", "inside params() - userid: "+RegisterActivity.userid);
                 params.put("name", name);
                 params.put("nationality", nationality);
                 params.put("gender", gender);
