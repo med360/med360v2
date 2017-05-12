@@ -241,9 +241,9 @@ public class LoginActivity extends Activity {
     //storing token to mysql server
     private void sendTokenToServer(final String email) {
         Log.e("sendtoken", "inside sendtokentoserver()");
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Registering Device...");
-        progressDialog.show();
+        //progressDialog = new ProgressDialog(this);
+        //progressDialog.setMessage("Registering Device...");
+        //progressDialog.show();
         final String tokenapi="http://azmediame.net/med360/webinterface/push/new/RegisterDevice.php";
 
         final String token = SharedPrefManager.getInstance(this).getDeviceToken();
@@ -251,7 +251,7 @@ public class LoginActivity extends Activity {
 
         if (token == null) {
             Log.e("sendtoken", "inside token is null");
-            progressDialog.dismiss();
+            //progressDialog.dismiss();
             Toast.makeText(this, "Token not generated", Toast.LENGTH_LONG).show();
             return;
         }
@@ -261,7 +261,7 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onResponse(String response) {
                         Log.e("sendtoken", "sendtoken api response: "+response);
-                        progressDialog.dismiss();
+                        //progressDialog.dismiss();
                         try {
                             JSONObject obj = new JSONObject(response);
                             Toast.makeText(LoginActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
@@ -273,7 +273,7 @@ public class LoginActivity extends Activity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
+                        //progressDialog.dismiss();
                         Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }) {

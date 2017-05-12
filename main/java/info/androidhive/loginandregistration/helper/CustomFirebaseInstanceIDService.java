@@ -31,7 +31,7 @@ public class CustomFirebaseInstanceIDService extends FirebaseInstanceIdService {
         Log.d(TAG, "Token Value: " + refreshedToken);
         Log.e("firebaseinstance", "token is: "+refreshedToken);
         storeToken(refreshedToken);
-        sendTheRegisteredTokenToWebServer(refreshedToken);
+        //sendTheRegisteredTokenToWebServer(refreshedToken);
 
     }
 
