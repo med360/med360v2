@@ -1,149 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    tools:context="info.androidhive.loginandregistration.activity.DoctorProfile">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ScrollView
-    android:id="@+id/scroll"
-    android:layout_width="wrap_content"
-    android:layout_height="743dp"
-    android:fillViewport="true">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/header_cover_image"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:scaleType="centerCrop"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:padding="10dp"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
 
-        <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/doctoreimage"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_below="@+id/header_cover_image"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-60dp"
-            android:background="@drawable/profile_circular_border_imageview"
-            android:elevation="5dp"
-            android:padding="20dp"
-            android:scaleType="centerCrop" />
-
-
-        <RelativeLayout
-            android:id="@+id/profile_layout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header_cover_image"
-            android:background="#ebca0707"
-            android:elevation="4dp"
-            android:paddingBottom="24dp">
+            android:layout_gravity="center"
+            android:layout_weight="0.87"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:weightSum="1">
 
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/doctoreimage"
+                android:layout_width="150dp"
+                android:layout_height="126dp"
+                android:layout_gravity="center"
+
+
+                android:scaleType="centerCrop"
+                app:sriv_border_color="#FFCC00"
+                app:sriv_border_width="2dp"
+                app:sriv_oval="true" />
 
 
             <TextView
                 android:id="@+id/doctorname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="76dp"
-                android:textColor="#fff"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:padding="10dp"
+                android:textColor="@color/lbl_name"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/doctorhp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/doctorname"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
-                android:textColor="#fff"
-                android:textSize="14sp" />
+                android:padding="10dp"
+                android:textColor="#000000"
 
-        </RelativeLayout>
-
-
-        <LinearLayout
-            android:id="@+id/layout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_layout"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical">
-
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/doctorhpadd"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp" />
+                android:padding="10dp"
 
+                android:textColor="#000000"
+                android:textSize="12sp" />
             <TextView
                 android:id="@+id/doctornationality"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp" />
-
+                android:padding="10dp"
+                android:textColor="@color/lbl_name"
+                android:textSize="20sp" />
             <TextView
                 android:id="@+id/doctorgender"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp" />
+                android:padding="10dp"
+                android:textColor="@color/lbl_name"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/doctorspcl"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp" />
+                android:padding="10dp"
+                android:textColor="@color/lbl_name"
+                android:textSize="20sp" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp"
-                android:text="Android Profile UI Design" />
 
             <Button
                 android:id="@+id/btnmsg"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_width="276dp"
+                android:layout_height="30dp"
+
                 android:background="@color/btn_logut_bg"
                 android:text="@string/message_doctor"
                 android:textAllCaps="false"
@@ -152,36 +102,39 @@
 
             <Button
                 android:id="@+id/btnbook"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_width="276dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="10dip"
+                android:layout_marginBottom="10dip"
                 android:background="@color/btn_logut_bg"
                 android:text="@string/request_appointment"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp" />
 
+            <LinearLayout
+
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <android.support.design.widget.BottomNavigationView
+                    android:id="@+id/navigation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="10dip"
+                    android:background="?android:attr/windowBackground"
+                    app:menu="@menu/navigation" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <android.support.design.widget.BottomNavigationView
-                android:id="@+id/navigation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:layout_gravity="bottom"
-                android:layout_marginTop="10dip"
-                android:background="?android:attr/windowBackground"
-                app:menu="@menu/navigation" />
-        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

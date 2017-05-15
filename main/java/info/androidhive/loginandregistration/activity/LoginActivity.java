@@ -161,9 +161,10 @@ public class LoginActivity extends Activity {
 
                         String dob = user.getString("dob");
                         String pid = user.getString("pid");
+                        String userid = user.getString("userid");
                        String created_at = user.getString("created_at");
                         Log.e("medlogin", "stored all user information to strings");
-                        session.createLoginSession(name, email, dob,nationality,bgp,pid);
+                        session.createLoginSession(name, email, dob,nationality,bgp,pid,userid);
                         Log.e("medlogin", "session created");
 
 

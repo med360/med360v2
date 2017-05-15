@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="info.androidhive.loginandregistration.activity.Viewdoctor">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_row_selector"
+        android:padding="8dp" >
+
+        <!-- Thumbnail Image -->
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/chthumbnail"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="8dp" />
+
+        <!-- Movie Title -->
+        <TextView
+            android:id="@+id/chdname"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chthumbnail"
+            android:layout_toRightOf="@+id/chthumbnail"
+            android:textSize="@dimen/title"
+            android:text="17/01/2014"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:text=""
+            android:layout_marginLeft="10dip"
+            android:textColor="#000000"
+            android:id="@+id/chlast"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chdname"
+            android:layout_marginTop="10dip"
+            android:layout_toRightOf="@+id/chthumbnail"
+            android:textSize="@dimen/rating" />
+
+        <TextView
+            android:text=""
+            android:layout_marginLeft="10dip"
+            android:textColor="#000000"
+            android:id="@+id/chtime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chlast"
+            android:layout_marginTop="10dip"
+            android:layout_toRightOf="@+id/chthumbnail"
+            android:textSize="@dimen/rating" />
+
+        <!-- Rating -->
+
+        <!-- Genre -->
+
+
+        <TextView
+            android:id="@+id/chpuid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/year"
+            android:textSize="@dimen/year"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/chduid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/year"
+            android:textSize="@dimen/year"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/chimagelink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/year"
+            android:textSize="@dimen/year"
+            android:visibility="gone" />
+
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
