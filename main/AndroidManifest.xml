@@ -96,7 +96,10 @@
             android:name=".activity.MapsActivity"
             android:exported="true" />
         <activity android:name=".activity.MessageActivity" />
-        <activity android:name=".activity.ViewChats"
+        <activity
+            android:name=".activity.ViewChats"
+            android:exported="true" />
+        <activity android:name=".activity.SingleChat"
             android:exported="true"></activity>
     </application>
 

@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class ChatListAdapter extends BaseAdapter {
             inflater = (LayoutInflater) activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.booklist_row, null);
+            convertView = inflater.inflate(R.layout.chat_row, null);
 
 
 
@@ -83,7 +84,9 @@ public class ChatListAdapter extends BaseAdapter {
         // getting movie data for the row
         Chats ch =  chatitems.get(position);
 
+        String chimglink=ch.getThumbnailUrl();
 
+        Log.e("chatadapter", "1. imageurl returned by getthumbnailurl() is " + chimglink);
         thumbNail.setImageUrl(ch.getThumbnailUrl(), imageLoader);
 
 
@@ -98,9 +101,9 @@ chtime.setText(ch.getStime());
 
        chimagelink.setText(ch.getThumbnailUrl());
 
+        chimglink=ch.getThumbnailUrl();
 
-
-
+       
 
         return convertView;
     }

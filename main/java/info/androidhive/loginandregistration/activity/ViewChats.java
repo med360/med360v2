@@ -191,7 +191,7 @@ public class ViewChats extends AppCompatActivity {
                 hidePDialog();
                 try {
 
-                    Log.e("viewbook", "inside onresponse");
+                    Log.e("viewbook", "inside onresponse- Response String is: "+response);
 
 
 
@@ -206,7 +206,7 @@ public class ViewChats extends AppCompatActivity {
                         JSONArray chatsarray = jObj.getJSONArray("row");
 
 
-                        Log.e("viewbook", "inside onresponse: " + chatsarray);
+                        Log.e("viewbook", "inside onresponse Array is: " + chatsarray);
 // Parsing json
                         for (int i = 0; i < chatsarray.length(); i++) {
                             try {
