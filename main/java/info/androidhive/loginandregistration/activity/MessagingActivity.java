@@ -42,13 +42,17 @@ public class MessagingActivity extends AppCompatActivity {
         pDialog.setCancelable(false);
         Intent i = getIntent();
         // getting doctor id (did) from intent
+
         final String puid = i.getStringExtra("puid");
         final String duid = i.getStringExtra("duid");
 
-        final String message = txtmssg.getText().toString().trim();
+
+
 
         btnsend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                final String message = txtmssg.getText().toString();
+                Log.e("mssg", "the message type is: "+message);
               sendmssg(puid,duid,message);
             }
         });
@@ -121,7 +125,7 @@ public class MessagingActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("sender_id", puid);
                 params.put("reciepent_id", duid);
-                params.put("message", duid);
+                params.put("message", mssg);
 
                 return params;
             }

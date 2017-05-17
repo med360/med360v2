@@ -109,18 +109,18 @@ public class ViewChats extends AppCompatActivity {
         listView.setAdapter(adapter);
 
 
-       // listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-           // @Override
-           // public void onItemClick(AdapterView<?> parent, View view,
-              //                      int position, long id) {
+          @Override
+          public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
                 // getting values from selected ListItem
                 //String reqid = ((TextView) view.findViewById(R.id.reqid)).getText()
                        // .toString();
-                //String bkdate = ((TextView) view.findViewById(R.id.bkdate)).getText()
-                        //.toString();
-                //String bktimeinfo = ((TextView) view.findViewById(R.id.bktimeinfo)).getText()
-                        //.toString();
+               String chpuid = ((TextView) view.findViewById(R.id.chpuid)).getText()
+                        .toString();
+                String chduid = ((TextView) view.findViewById(R.id.chduid)).getText()
+                     .toString();
                 //String bkprefinfo = ((TextView) view.findViewById(R.id.bkprefinfo)).getText()
                        // .toString();
                 //String bkstatusinfo = ((TextView) view.findViewById(R.id.statusinfo)).getText()
@@ -133,11 +133,11 @@ public class ViewChats extends AppCompatActivity {
                 //Log.e("hp", "received hp address from listview : "+hpaddress);
 
                 // Starting new intent
-                //Intent in = new Intent(getApplicationContext(),
-                //        ViewSingleBooking.class);
+             Intent in = new Intent(getApplicationContext(),
+                       MessagingActivity.class);
                 // sending pid to next activity
-                //in.putExtra("reqid", reqid);
-                //in.putExtra("bkdate", bkdate);
+               in.putExtra("puid", chpuid);
+              in.putExtra("duid", chduid);
                 //in.putExtra("bktimeinfo", bktimeinfo);
                 //in.putExtra("bkprefinfo", bkprefinfo);
                // in.putExtra("bkstatusinfo", bkstatusinfo);
@@ -149,9 +149,9 @@ public class ViewChats extends AppCompatActivity {
 
 
                 // starting new activity and expecting some response back
-                //startActivityForResult(in, 100);
-         //   }
-        //});
+                startActivityForResult(in, 100);
+            }
+       });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
