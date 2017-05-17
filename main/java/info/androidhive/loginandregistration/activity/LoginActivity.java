@@ -154,24 +154,47 @@ public class LoginActivity extends Activity {
                        String uid = jObj.getString("uid");
 
                       JSONObject user = jObj.getJSONObject("user");
-                        String name = user.getString("name");
-                        String email = user.getString("email");
-                        String nationality = user.getString("nationality");
-                        String bgp = user.getString("bgp");
+                        String utype = user.getString("utype");
 
-                        String dob = user.getString("dob");
-                        String pid = user.getString("pid");
-                        String userid = user.getString("userid");
-                       String created_at = user.getString("created_at");
-                        Log.e("medlogin", "stored all user information to strings");
-                        session.createLoginSession(name, email, dob,nationality,bgp,pid,userid);
-                        Log.e("medlogin", "session created");
+                        if(utype.equals("2")){
+
+                            String userid = user.getString("userid");
+                            String created_at = user.getString("created_at");
+                            String email = user.getString("email");
+                            String did = user.getString("pid");
+                            String name = user.getString("name");
+                            session.createDoctorLoginSession(name, email,did,userid);
+                            Log.e("medlogin", "session created");
+                        }
+
+                        else
+
+                            {
+
+                                String name = user.getString("name");
+                                String email = user.getString("email");
+                                String nationality = user.getString("nationality");
+                                String bgp = user.getString("bgp");
+
+                                String dob = user.getString("dob");
+                                String pid = user.getString("pid");
+                                String userid = user.getString("userid");
+                                String created_at = user.getString("created_at");
+                                Log.e("medlogin", "stored all user information to strings");
 
 
 
-                        Log.e("medlogin", "Before sendtokentoserver()");
-                        sendTokenToServer(email);
+                                session.createLoginSession(name, email, dob,nationality,bgp,pid,userid);
+                                Log.e("medlogin", "session created");
 
+
+
+                                Log.e("medlogin", "Before sendtokentoserver()");
+                                sendTokenToServer(email);
+
+
+
+                            }
 
 
 
@@ -180,10 +203,24 @@ public class LoginActivity extends Activity {
 
                         // Launch main activity
                         Log.e("medlogin", "before redirecting to new activity on success login");
-                        Intent intent = new Intent(LoginActivity.this,
-                                Viewdoctor.class);
-                        startActivity(intent);
-                        finish();
+                        if(utype.equals("2")){
+
+
+                            Intent intent = new Intent(LoginActivity.this,
+                                    ViewChats.class);
+                            startActivity(intent);
+                            finish();
+
+
+
+                        }else{
+
+                            Intent intent = new Intent(LoginActivity.this,
+                                    Viewdoctor.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
                     } else {
                         // Error in login. Get the error message
                         Log.e("medlogin", "error in login");

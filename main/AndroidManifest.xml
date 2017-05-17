@@ -99,8 +99,11 @@
         <activity
             android:name=".activity.ViewChats"
             android:exported="true" />
-        <activity android:name=".activity.SingleChat"
-            android:exported="true"></activity>
+        <activity
+            android:name=".activity.SingleChat"
+            android:exported="true" />
+        <activity android:name=".activity.MessagingActivity"
+            android:exported="true"   ></activity>
     </application>
 
 </manifest>

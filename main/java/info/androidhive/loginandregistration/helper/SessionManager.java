@@ -83,6 +83,9 @@ public class SessionManager {
 
 	}
 
+
+
+
 	public void logoutUser(){
 		// Clearing all data from Shared Preferences
 		editor.clear();
@@ -104,4 +107,33 @@ public class SessionManager {
 	public boolean isLoggedIn(){
 		return pref.getBoolean(KEY_IS_LOGGED_IN, false);
 	}
+
+
+
+	public void createDoctorLoginSession(String name, String email,String did,String userid){
+		Log.e("login", "beginning of createloginsession method");
+		// Storing login value as TRUE
+		// Storing name in pref
+		editor.putString("name", name);
+		editor.putString("email", email);
+
+		editor.putString("did", did);
+		editor.putString("userid", userid);
+
+
+
+
+		editor.putString("dob", "");
+		editor.putString("nationality", "");
+		editor.putString("blood", "");
+		editor.putString("pid", "");
+
+
+
+
+		editor.commit();
+		Log.e("login", "all user details added to pref - login session");
+	}
 }
+
+
