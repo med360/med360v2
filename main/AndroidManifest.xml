@@ -32,6 +32,7 @@
 
         <activity
             android:name=".activity.LoginActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan" />
@@ -102,8 +103,10 @@
         <activity
             android:name=".activity.SingleChat"
             android:exported="true" />
-        <activity android:name=".activity.MessagingActivity"
-            android:exported="true"   ></activity>
+        <activity
+            android:name=".activity.MessagingActivity"
+            android:exported="true" />
+        <activity android:name=".activity.ConversationActivity"></activity>
     </application>
 
 </manifest>
