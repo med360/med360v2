@@ -106,7 +106,8 @@
         <activity
             android:name=".activity.MessagingActivity"
             android:exported="true" />
-        <activity android:name=".activity.ConversationActivity"></activity>
+        <activity android:name=".activity.ConversationActivity" />
+        <activity android:name=".activity.ImageUploadActivity"></activity>
     </application>
 
 </manifest>

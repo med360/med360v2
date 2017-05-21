@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -54,6 +55,8 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService{
             String message = data.getString("message");
             String imageUrl = data.getString("image");
 
+newmessagereceived(message);
+
             //creating MyNotificationManager object
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());
 
@@ -75,6 +78,21 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService{
             Log.e(TAG, "Exception: " + e.getMessage());
         }
     }
+
+    private void newmessagereceived(String message) {
+
+        Log.e("broadlog","inside newmessagreceived: " + message);
+        Intent intent = new Intent("newmessage");
+        sendLocationBroadcast(intent,message);
+    }
+
+    private void sendLocationBroadcast(Intent intent,String message){
+        intent.putExtra("message", message);
+        Log.e("broadlog","inside sendlocationbroadcast: " + message);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+
 
     private void sendNotification(String message) {
         Intent intent = new Intent(this, MainActivity.class);

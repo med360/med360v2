@@ -12,11 +12,16 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.HashMap;
 
 import info.androidhive.loginandregistration.R;
+import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 import info.androidhive.loginandregistration.helper.SessionManager;
 
@@ -28,6 +33,11 @@ public class MainActivity extends AppCompatActivity{
 	private TextView txtnational;
 	private TextView txtblood;
 	private Button btnLogout;
+	private Button btnchange;
+	private ImageButton imgbtn1;
+	private ImageButton imgbtn4;
+	private NetworkImageView thumbNail;
+
 
 	private SQLiteHandler db;
 	private SessionManager session;
@@ -92,7 +102,10 @@ public class MainActivity extends AppCompatActivity{
 		txtdob = (TextView) findViewById(R.id.dob);
 		txtnational = (TextView) findViewById(R.id.nationality);
 		txtblood = (TextView) findViewById(R.id.bloodgroup);
-
+		thumbNail = (NetworkImageView) findViewById(R.id.userimage);
+		imgbtn1 = (ImageButton) findViewById(R.id.imgbtn1);
+		imgbtn4 = (ImageButton) findViewById(R.id.imgbtn4);
+		btnchange = (Button) findViewById(R.id.btnchange);
 
 		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
@@ -121,6 +134,7 @@ public class MainActivity extends AppCompatActivity{
 		String dob = user.get("dob");
 		String nationality = user.get("nationality");
 		String blood = user.get("blood");
+		String image = user.get("image");
 
 		Log.e("medlogin", "all details fetched from hashmap and now displaying on text fields begin");
 		// Displaying the user details on the screen
@@ -129,6 +143,12 @@ public class MainActivity extends AppCompatActivity{
 		txtdob.setText(dob);
 		txtnational.setText(nationality);
 		txtblood.setText(blood);
+
+		ImageLoader imgLoader;
+		imgLoader = AppController.getInstance().getImageLoader();
+		thumbNail.setImageUrl(image, imgLoader);
+
+
 		Log.e("medlogin", "all details are displayed succesfully");
 		// Logout button click event
 		btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +156,42 @@ public class MainActivity extends AppCompatActivity{
 			@Override
 			public void onClick(View v) {
 				logoutUser();
+			}
+		});
+
+
+		btnchange.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent(getApplicationContext(),
+						ImageUploadActivity.class);
+				// sending did to next activity
+
+				// starting new activity and expecting some response back
+				startActivityForResult(in, 100);
+			}
+		});
+
+
+		imgbtn1.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent(getApplicationContext(),
+						Viewdoctor.class);
+				// sending did to next activity
+
+				// starting new activity and expecting some response back
+				startActivityForResult(in, 100);
+			}
+		});
+
+		imgbtn4.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				session.logoutUser();
 			}
 		});
 	}

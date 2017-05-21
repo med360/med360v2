@@ -74,7 +74,7 @@ public class ConvoListAdapter extends BaseAdapter {
       //  NetworkImageView thumbNail = (NetworkImageView) convertView
       //          .findViewById(R.id.chthumbnail);
         TextView cnsndname = (TextView) convertView.findViewById(R.id.cnsndname);
-        EditText cnmssg = (EditText) convertView.findViewById(R.id.cnmssg);
+        TextView cnmssg = (TextView) convertView.findViewById(R.id.cnmssg);
 
 
 

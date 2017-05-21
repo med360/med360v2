@@ -20,8 +20,22 @@
             android:layout_height="428dp"
             android:layout_gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="20dp"
+            android:paddingLeft="5dp"
             android:paddingRight="20dp">
+
+            <Button
+                android:id="@+id/newmssgbtn"
+                android:layout_width="144dp"
+                android:layout_height="34dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dip"
+                android:layout_marginLeft="180dip"
+                android:background="#ff6861"
+                android:text="New Message"
+                android:textColor="#FFFFFF"
+
+                tools:ignore="RtlHardcoded" />
+
 
             <ListView
                 android:id="@+id/cnlist"

@@ -134,7 +134,7 @@ public class ViewChats extends AppCompatActivity {
 
                 // Starting new intent
              Intent in = new Intent(getApplicationContext(),
-                       MessagingActivity.class);
+                       ConversationActivity.class);
                 // sending pid to next activity
                in.putExtra("puid", chpuid);
               in.putExtra("duid", chduid);

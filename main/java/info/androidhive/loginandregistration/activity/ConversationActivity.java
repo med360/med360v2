@@ -1,15 +1,20 @@
 package info.androidhive.loginandregistration.activity;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,9 +49,11 @@ public class ConversationActivity extends AppCompatActivity {
     private SessionManager session;
     private List<Convos> cnList = new ArrayList<Convos>();
     private static final String convosurl = "http://azmediame.net/med360/webinterface/api/get_rec_message.php";
-
+private Button sendbtn;
     private ProgressDialog pDialog;
     private ListView listView;
+    private String ptid="";
+    private String dtid="";
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -104,13 +111,31 @@ public class ConversationActivity extends AppCompatActivity {
         HashMap<String, String> user = session.getUserDetails();
         String pid = user.get("pid");
         String userid = user.get("userid");
-        Log.e("viewbook", "Session PID is: "+pid);
-        Log.e("viewbook", "Session USERID is: "+user);
+        Log.e("convo", "Session PID is: "+pid);
+        Log.e("convo", "Session USERID is: "+user);
 
         listView = (ListView) findViewById(R.id.cnlist);
         adapter = new ConvoListAdapter(this, cnList);
         listView.setAdapter(adapter);
+sendbtn= (Button) findViewById(R.id.newmssgbtn) ;
+        Intent i = getIntent();
+        final String puid = i.getStringExtra("puid");
+        final String duid = i.getStringExtra("duid");
+        ptid=puid;
+        dtid=duid;
+        sendbtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // Starting new intent
+                Intent in = new Intent(getApplicationContext(),
+                        MessagingActivity.class);
+                // sending did to next activity
+                in.putExtra("puid", puid);
+                in.putExtra("duid", duid);
 
+                // starting new activity and expecting some response back
+                startActivityForResult(in, 100);
+            }
+        });
 
         //listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -165,16 +190,33 @@ public class ConversationActivity extends AppCompatActivity {
         // Showing progress dialog before making http request
         pDialog.setMessage("Loading...");
         pDialog.show();
-        Intent i = getIntent();
-        final String puid = i.getStringExtra("puid");
-        final String duid = i.getStringExtra("duid");
+
         get_convos(puid,duid);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mMessageReceiver, new IntentFilter("newmessage"));
 
     }
 
 
 
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            get_convos(ptid,dtid);
+            String action = intent.getAction();
+            String message=intent.getStringExtra("message");
+            Log.e("broadlog","inside onreceive in the activity " + message);
 
+
+
+
+            Toast.makeText(getApplicationContext(),
+                    "The Received Message is:"+message, Toast.LENGTH_LONG).show();
+
+            //  ... react to local broadcast message
+        }
+    };
 
 
 
@@ -269,8 +311,8 @@ public class ConversationActivity extends AppCompatActivity {
                 // Posting parameters to login url
                 Log.e("viewbook", "inside getparams method ");
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("puid", puid);
-                params.put("duid", duid);
+                params.put("user_id", puid);
+                params.put("reciepent_id", duid);
 
                 return params;
             }
