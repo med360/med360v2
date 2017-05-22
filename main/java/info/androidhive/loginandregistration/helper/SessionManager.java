@@ -77,6 +77,7 @@ public class SessionManager {
 		user.put("pid", pref.getString("pid", null));
 		user.put("userid", pref.getString("userid", null));
 		user.put("image", pref.getString("image", null));
+		user.put("utype", pref.getString("utype", null));
 
 		Log.e("login", "added all user details in session to hashmap when getuserdetails method called");
 
@@ -112,7 +113,7 @@ public class SessionManager {
 
 
 
-	public void createDoctorLoginSession(String name, String email,String did,String userid){
+	public void createDoctorLoginSession(String name, String email,String did,String userid,String utype){
 		Log.e("login", "beginning of createloginsession method");
 		// Storing login value as TRUE
 		// Storing name in pref
@@ -122,7 +123,7 @@ public class SessionManager {
 		editor.putString("did", did);
 		editor.putString("userid", userid);
 
-
+		editor.putString("utype", utype);
 
 
 		editor.putString("dob", "");

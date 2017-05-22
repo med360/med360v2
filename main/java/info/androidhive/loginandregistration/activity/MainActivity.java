@@ -135,7 +135,17 @@ public class MainActivity extends AppCompatActivity{
 		String nationality = user.get("nationality");
 		String blood = user.get("blood");
 		String image = user.get("image");
+		String utype = user.get("utype");
 
+
+
+		// force doctor to chats page
+
+		if(utype.equals("2")){
+		Intent intent = new Intent(MainActivity.this, ViewChats.class);
+		startActivity(intent);
+		finish();
+		}
 		Log.e("medlogin", "all details fetched from hashmap and now displaying on text fields begin");
 		// Displaying the user details on the screen
 		txtName.setText(name);
