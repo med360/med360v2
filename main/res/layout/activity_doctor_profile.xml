@@ -90,7 +90,7 @@
 
 
             <Button
-                android:id="@+id/btnmsg"
+                android:id="@+id/btnmssgdt"
                 android:layout_width="276dp"
                 android:layout_height="30dp"
 

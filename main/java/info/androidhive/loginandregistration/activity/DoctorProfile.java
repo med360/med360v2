@@ -54,6 +54,7 @@ public class DoctorProfile extends Activity {
     private TextView txtdoctorhpadd;
     private NetworkImageView thumbNail;
     private Button btnbook;
+    private Button btnmssgdt;
 
 
 
@@ -118,6 +119,7 @@ public class DoctorProfile extends Activity {
         txtdoctorhpadd = (TextView) findViewById(R.id.doctorhpadd);
 
         btnbook = (Button) findViewById(R.id.btnbook);
+        btnmssgdt = (Button) findViewById(R.id.btnmssgdt);
 
        thumbNail = (NetworkImageView) findViewById(R.id.doctoreimage);
 
@@ -137,6 +139,19 @@ public class DoctorProfile extends Activity {
                         Booking.class);
                 // sending did to next activity
                 in.putExtra("did", did);
+
+                // starting new activity and expecting some response back
+                startActivityForResult(in, 100);
+            }
+        });
+
+        btnmssgdt.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                // Starting new intent
+                Intent in = new Intent(getApplicationContext(),
+                        ViewChats.class);
+                // sending did to next activity
+
 
                 // starting new activity and expecting some response back
                 startActivityForResult(in, 100);
