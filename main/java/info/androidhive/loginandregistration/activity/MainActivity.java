@@ -124,6 +124,15 @@ public class MainActivity extends AppCompatActivity{
 			logoutUser();
 		}
 
+
+		//DELETE THIS LINE AFTER FIRST RUN
+
+		logoutUser();
+
+
+
+
+
 		// Fetching user details from SQLite
 		HashMap<String, String> user = session.getUserDetails();
 		Log.e("medlogin", "hashmap got returned and started to fetch details to strings");
