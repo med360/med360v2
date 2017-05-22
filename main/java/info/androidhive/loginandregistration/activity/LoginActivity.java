@@ -186,7 +186,7 @@ public class LoginActivity extends Activity {
 
 
 
-                                session.createLoginSession(name, email, dob,nationality,bgp,pid,userid,image);
+                                session.createLoginSession(name, email, dob,nationality,bgp,pid,userid,image,utype);
                                 Log.e("medlogin", "session created");
 
 

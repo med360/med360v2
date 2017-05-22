@@ -45,7 +45,7 @@ public class SessionManager {
 
 		Log.d(TAG, "User login session modified!");
 	}
-	public void createLoginSession(String name, String email, String dob, String nationality, String blood,String pid,String userid,String image){
+	public void createLoginSession(String name, String email, String dob, String nationality, String blood,String pid,String userid,String image,String utype){
 		Log.e("login", "beginning of createloginsession method");
 		// Storing login value as TRUE
 		// Storing name in pref
@@ -57,6 +57,7 @@ public class SessionManager {
 		editor.putString("pid", pid);
 		editor.putString("userid", userid);
 		editor.putString("image", image);
+		editor.putString("utype", utype);
 		editor.commit();
 		Log.e("login", "all user details added to pref - login session");
 	}
