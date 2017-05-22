@@ -55,7 +55,8 @@ public class DoctorProfile extends Activity {
     private NetworkImageView thumbNail;
     private Button btnbook;
     private Button btnmssgdt;
-
+private String duid="";
+    private String puid="";
 
 
     private TextView txtnational;
@@ -130,6 +131,10 @@ public class DoctorProfile extends Activity {
         Log.e("singledoctor", "before function call");
 
 
+        HashMap<String, String> user = session.getUserDetails();
+        Log.e("medlogin", "hashmap got returned and started to fetch details to strings");
+        puid = user.get("userid");
+
 
 
         btnbook.setOnClickListener(new View.OnClickListener() {
@@ -149,8 +154,11 @@ public class DoctorProfile extends Activity {
             public void onClick(View view) {
                 // Starting new intent
                 Intent in = new Intent(getApplicationContext(),
-                        ViewChats.class);
+                        MessagingActivity.class);
                 // sending did to next activity
+// sending did to next activity
+                in.putExtra("puid", puid);
+                in.putExtra("duid", duid);
 
 
                 // starting new activity and expecting some response back
@@ -197,6 +205,7 @@ public class DoctorProfile extends Activity {
                         String nationality = doctor.getString("nationality");
                         String speciality = doctor.getString("specialit");
                         String did = doctor.getString("did");
+                      duid = doctor.getString("duid");
                         String gender = doctor.getString("gender");
                         String image = doctor.getString("image");
                         String hpname = doctor.getString("hpname");
