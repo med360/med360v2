@@ -125,6 +125,9 @@ public class MainActivity extends AppCompatActivity{
 		}
 
 
+		//DELETE THIS LINE AFTER FIRST RUN
+
+		//logoutUser();
 
 
 

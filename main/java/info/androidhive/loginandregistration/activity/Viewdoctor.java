@@ -44,6 +44,7 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -159,7 +160,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
     PlacesTask placesTask;
     ParserTask parserTask;
     private Button detbtn;
-    private Button filter;
+//    private Button filter;
     private Spinner spinner_spec;
     private Spinner spinner_nat;
     private Spinner spinner_gen;
@@ -239,7 +240,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewdoctor);
 
-        filter = (Button) findViewById(R.id.filter);
+        //filter = (Button) findViewById(R.id.filter);
 
 
 
@@ -381,7 +382,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
         //          togglePeriodicLocationUpdates();
         //     }
         // });
-        filter.setOnClickListener(new View.OnClickListener() {
+       /* filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -395,7 +396,7 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
             }
         });
 
-
+*/
 
         detbtn.setOnClickListener(new View.OnClickListener() {
 
@@ -422,6 +423,23 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_bar, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Take appropriate action for each action item click
+
+        setContentView(R.layout.dialog_filter);
+
+        openDialog();
+        return true;
+    }
 
 
 
