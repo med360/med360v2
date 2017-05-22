@@ -130,7 +130,7 @@ private String duid="";
 
         Log.e("singledoctor", "before function call");
 
-
+        session = new SessionManager(getApplicationContext());
         HashMap<String, String> user = session.getUserDetails();
         Log.e("medlogin", "hashmap got returned and started to fetch details to strings");
         puid = user.get("userid");
