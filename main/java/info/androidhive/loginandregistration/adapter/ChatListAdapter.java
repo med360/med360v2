@@ -79,7 +79,7 @@ public class ChatListAdapter extends BaseAdapter {
         TextView chduid = (TextView) convertView.findViewById(R.id.chduid);
         TextView chimagelink = (TextView) convertView.findViewById(R.id.chimagelink);
         TextView chtime = (TextView) convertView.findViewById(R.id.chtime);
-
+        TextView convowith = (TextView) convertView.findViewById(R.id.chconvowith);
 
         // getting movie data for the row
         Chats ch =  chatitems.get(position);
@@ -95,6 +95,7 @@ public class ChatListAdapter extends BaseAdapter {
         chduid.setText(ch.getDuid());
         chlast.setText(ch.getMssg());
 chtime.setText(ch.getStime());
+        convowith.setText(ch.getConvowith());
 
 
 

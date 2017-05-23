@@ -84,8 +84,9 @@ public class MessagingActivity extends AppCompatActivity {
                 try {
                     JSONObject jObj = new JSONObject(response);
 
-                    boolean error = jObj.getBoolean("error");
-                    if (!error) {
+                    //boolean error = jObj.getBoolean("error");
+                    String success = jObj.getString("success");
+                    if (success.equals("1")) {
                         // Request stored in MySQL
 
                         Toast.makeText(getApplicationContext(), "Message Sent Successfully", Toast.LENGTH_LONG).show();
@@ -93,9 +94,10 @@ public class MessagingActivity extends AppCompatActivity {
                         // Launch doctor profile activity
                         // Starting new intent
                         Intent in = new Intent(getApplicationContext(),
-                                ViewChats.class);
+                                ConversationActivity.class);
                         // sending pid to next activity
-
+                        in.putExtra("puid", puid);
+                        in.putExtra("duid", duid);
 
                         // starting new activity and expecting some response back
                         startActivityForResult(in, 100);

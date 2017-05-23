@@ -66,6 +66,13 @@ public class ViewChats extends AppCompatActivity {
                     startActivity(intent2);
                     finish();
                     return true;
+                case R.id.apointment:
+                    Log.e("medlogin", "before redirecting to new activity on success login");
+                    Intent intent5 = new Intent(ViewChats.this,
+                            ViewChats.class);
+                    startActivity(intent5);
+                    finish();
+                    return true;
                 case R.id.profilenav:
                     Log.e("medlogin", "before redirecting to new activity on success login");
                     Intent intent3 = new Intent(ViewChats.this,
@@ -100,7 +107,7 @@ public class ViewChats extends AppCompatActivity {
 
         HashMap<String, String> user = session.getUserDetails();
         String pid = user.get("pid");
-        String userid = user.get("userid");
+        final String userid = user.get("userid");
         Log.e("viewbook", "Session PID is: "+pid);
         Log.e("viewbook", "Session USER DETAILS IN HASHMAP RETURNED BY SESSION is: "+user);
         Log.e("viewbook", "Session USERID is: "+userid);
@@ -120,6 +127,8 @@ public class ViewChats extends AppCompatActivity {
                        // .toString();
                String chpuid = ((TextView) view.findViewById(R.id.chpuid)).getText()
                         .toString();
+              String chconvowith = ((TextView) view.findViewById(R.id.chconvowith)).getText()
+                      .toString();
                 String chduid = ((TextView) view.findViewById(R.id.chduid)).getText()
                      .toString();
                 //String bkprefinfo = ((TextView) view.findViewById(R.id.bkprefinfo)).getText()
@@ -137,8 +146,8 @@ public class ViewChats extends AppCompatActivity {
              Intent in = new Intent(getApplicationContext(),
                        ConversationActivity.class);
                 // sending pid to next activity
-               in.putExtra("puid", chpuid);
-              in.putExtra("duid", chduid);
+               in.putExtra("puid", userid);
+              in.putExtra("duid", chconvowith);
                 //in.putExtra("bktimeinfo", bktimeinfo);
                 //in.putExtra("bkprefinfo", bkprefinfo);
                // in.putExtra("bkstatusinfo", bkstatusinfo);
@@ -222,7 +231,7 @@ public class ViewChats extends AppCompatActivity {
                                 chat.setMssg(obj.getString("mssg"));
                                 chat.setMsgid(obj.getString("mid"));
                                 chat.setStime(obj.getString("sendtime"));
-
+                                chat.setConvowith(obj.getString("convowith"));
 
 
                                 chatList.add(chat);

@@ -13,11 +13,12 @@ public class Chats {
     private String msgid;
     private String mssg;
     private String stime;
+    private String convowith;
 
     public Chats() {
     }
 
-    public Chats(String thumbnailUrl, String name, String puid, String duid, String mssg, String msgid, String stime) {
+    public Chats(String thumbnailUrl, String name, String puid, String duid, String mssg, String msgid, String stime,String convowith) {
         this.puid = puid;
         this.thumbnailUrl = thumbnailUrl;
         this.duid = duid;
@@ -25,6 +26,8 @@ public class Chats {
         this.msgid = msgid;
         this.mssg = mssg;
         this.stime = stime;
+        this.convowith = convowith;
+
 
     }
 
@@ -90,6 +93,16 @@ public class Chats {
 
     public void setStime(String stime) {
         this.stime = stime;
+    }
+
+
+
+    public String getConvowith() {
+        return convowith;
+    }
+
+    public void setConvowith(String convowith) {
+        this.convowith = convowith;
     }
 
 

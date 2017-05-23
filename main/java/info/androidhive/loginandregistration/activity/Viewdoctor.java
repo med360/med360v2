@@ -202,6 +202,13 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
                     startActivity(intent2);
                     finish();
                     return true;
+                case R.id.apointment:
+                    Log.e("medlogin", "before redirecting to new activity on success login");
+                    Intent intent5 = new Intent(Viewdoctor.this,
+                            ViewChats.class);
+                    startActivity(intent5);
+                    finish();
+                    return true;
                 case R.id.profilenav:
                     Log.e("medlogin", "before redirecting to new activity on success login");
                     Intent intent3 = new Intent(Viewdoctor.this,

@@ -211,8 +211,8 @@ sendbtn= (Button) findViewById(R.id.newmssgbtn) ;
 
 
 
-            Toast.makeText(getApplicationContext(),
-                    "The Received Message is:"+message, Toast.LENGTH_LONG).show();
+           // Toast.makeText(getApplicationContext(),
+           //         "The Received Message is:"+message, Toast.LENGTH_LONG).show();
 
             //  ... react to local broadcast message
         }
