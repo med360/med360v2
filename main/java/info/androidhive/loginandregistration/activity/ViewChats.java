@@ -102,7 +102,8 @@ public class ViewChats extends AppCompatActivity {
         String pid = user.get("pid");
         String userid = user.get("userid");
         Log.e("viewbook", "Session PID is: "+pid);
-        Log.e("viewbook", "Session USERID is: "+user);
+        Log.e("viewbook", "Session USER DETAILS IN HASHMAP RETURNED BY SESSION is: "+user);
+        Log.e("viewbook", "Session USERID is: "+userid);
 
         listView = (ListView) findViewById(R.id.chlist);
         adapter = new ChatListAdapter(this, chatList);

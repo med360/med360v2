@@ -114,13 +114,13 @@ public class SessionManager {
 
 
 
-	public void createDoctorLoginSession(String name, String email,String did,String userid,String utype){
+	public void createDoctorLoginSession(String name, String email,String did,String userid,String utype,String image){
 		Log.e("login", "beginning of createloginsession method");
 		// Storing login value as TRUE
 		// Storing name in pref
 		editor.putString("name", name);
 		editor.putString("email", email);
-
+		editor.putString("image", image);
 		editor.putString("did", did);
 		editor.putString("userid", userid);
 

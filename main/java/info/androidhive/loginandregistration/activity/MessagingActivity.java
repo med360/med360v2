@@ -88,7 +88,7 @@ public class MessagingActivity extends AppCompatActivity {
                     if (!error) {
                         // Request stored in MySQL
 
-                        Toast.makeText(getApplicationContext(), "Request Sent Successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Message Sent Successfully", Toast.LENGTH_LONG).show();
 
                         // Launch doctor profile activity
                         // Starting new intent

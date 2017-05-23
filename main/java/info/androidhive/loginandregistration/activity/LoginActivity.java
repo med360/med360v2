@@ -163,9 +163,10 @@ public class LoginActivity extends Activity {
                             String email = user.getString("email");
                             String did = user.getString("did");
                             String name = user.getString("name");
-
-                            session.createDoctorLoginSession(name, email,did,userid,utype);
+                            String image = user.getString("image");
+                            session.createDoctorLoginSession(name, email,did,userid,utype,image);
                             Log.e("medlogin", "session created");
+                            sendTokenToServer(email);
                         }
 
                         else
