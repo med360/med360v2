@@ -35,7 +35,10 @@ public class MainActivity extends AppCompatActivity{
 	private Button btnLogout;
 	private Button btnchange;
 	private ImageButton imgbtn1;
+	private ImageButton imgbtn2;
+	private ImageButton imgbtn3;
 	private ImageButton imgbtn4;
+	private ImageButton imgbtn5;
 	private NetworkImageView thumbNail;
 
 
@@ -112,7 +115,10 @@ public class MainActivity extends AppCompatActivity{
 		txtblood = (TextView) findViewById(R.id.bloodgroup);
 		thumbNail = (NetworkImageView) findViewById(R.id.userimage);
 		imgbtn1 = (ImageButton) findViewById(R.id.imgbtn1);
+		imgbtn2 = (ImageButton) findViewById(R.id.imgbtn2);
+		imgbtn3 = (ImageButton) findViewById(R.id.imgbtn3);
 		imgbtn4 = (ImageButton) findViewById(R.id.imgbtn4);
+		imgbtn5 = (ImageButton) findViewById(R.id.imgbtn5);
 		btnchange = (Button) findViewById(R.id.btnchange);
 
 		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -214,7 +220,51 @@ public class MainActivity extends AppCompatActivity{
 			}
 		});
 
+
+		imgbtn2.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent(getApplicationContext(),
+						ViewBooking.class);
+				// sending did to next activity
+
+				// starting new activity and expecting some response back
+				startActivityForResult(in, 100);
+			}
+		});
+
+		imgbtn3.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent(getApplicationContext(),
+						ViewChats.class);
+				// sending did to next activity
+
+				// starting new activity and expecting some response back
+				startActivityForResult(in, 100);
+			}
+		});
+
 		imgbtn4.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent in = new Intent(getApplicationContext(),
+						MainActivity.class);
+				// sending did to next activity
+
+				// starting new activity and expecting some response back
+				startActivityForResult(in, 100);
+			}
+		});
+
+
+
+
+
+		imgbtn5.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
