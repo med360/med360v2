@@ -64,8 +64,7 @@ public class SingleChat extends AppCompatActivity {
 
 
 
-            LocalBroadcastManager.getInstance(this).registerReceiver(
-                    mMessageReceiver, new IntentFilter("newmessage"));
+
 
 
 
@@ -82,19 +81,6 @@ public class SingleChat extends AppCompatActivity {
             });
         }
 
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            String action = intent.getAction();
-            String message=intent.getStringExtra("message");
-            Log.e("broadlog","inside onreceive in the activity " + message);
-            Toast.makeText(getApplicationContext(),
-                    "The Received Message is:"+message, Toast.LENGTH_LONG).show();
-
-            //  ... react to local broadcast message
-        }
-    };
 
 
         private boolean sendChatMessage() {

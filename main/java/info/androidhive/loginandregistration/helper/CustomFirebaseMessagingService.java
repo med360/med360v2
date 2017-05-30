@@ -54,8 +54,11 @@ public class CustomFirebaseMessagingService extends FirebaseMessagingService{
             String title = data.getString("title");
             String message = data.getString("message");
             String imageUrl = data.getString("image");
-
-newmessagereceived(message);
+            String mssg = data.getString("mssg");
+            String sid = data.getString("sid");
+            String sname = data.getString("sname");
+if(mssg!=null){
+newmessagereceived(message,mssg,sid,sname);}
 
             //creating MyNotificationManager object
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());
@@ -79,15 +82,18 @@ newmessagereceived(message);
         }
     }
 
-    private void newmessagereceived(String message) {
+    private void newmessagereceived(String message,String mssg, String sid,String sname) {
 
         Log.e("broadlog","inside newmessagreceived: " + message);
         Intent intent = new Intent("newmessage");
-        sendLocationBroadcast(intent,message);
+        sendLocationBroadcast(intent,message,mssg,sid,sname);
     }
 
-    private void sendLocationBroadcast(Intent intent,String message){
+    private void sendLocationBroadcast(Intent intent,String message,String mssg,String sid,String sname){
         intent.putExtra("message", message);
+        intent.putExtra("mssg", mssg);
+        intent.putExtra("sid", sid);
+        intent.putExtra("sname", sname);
         Log.e("broadlog","inside sendlocationbroadcast: " + message);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }

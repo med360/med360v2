@@ -5,16 +5,21 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.DataSetObserver;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,10 +55,13 @@ public class ConversationActivity extends AppCompatActivity {
     private List<Convos> cnList = new ArrayList<Convos>();
     private static final String convosurl = "http://azmediame.net/med360/webinterface/api/get_rec_message.php";
 private Button sendbtn;
+    private FloatingActionButton btnsend;
+    private EditText chtxtinput;
     private ProgressDialog pDialog;
     private ListView listView;
     private String ptid="";
     private String dtid="";
+    private String session_uid="";
     public BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -111,31 +119,96 @@ private Button sendbtn;
         HashMap<String, String> user = session.getUserDetails();
         String pid = user.get("pid");
         String userid = user.get("userid");
+        final String name = user.get("name");
+        session_uid=userid;
         Log.e("convo", "Session PID is: "+pid);
         Log.e("convo", "Session USERID is: "+user);
 
         listView = (ListView) findViewById(R.id.cnlist);
         adapter = new ConvoListAdapter(this, cnList);
         listView.setAdapter(adapter);
-sendbtn= (Button) findViewById(R.id.newmssgbtn) ;
+
+        adapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                listView.setSelection(adapter.getCount() - 1);
+            }
+        });
         Intent i = getIntent();
         final String puid = i.getStringExtra("puid");
         final String duid = i.getStringExtra("duid");
         ptid=puid;
         dtid=duid;
-        sendbtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                // Starting new intent
-                Intent in = new Intent(getApplicationContext(),
-                        MessagingActivity.class);
-                // sending did to next activity
-                in.putExtra("puid", puid);
-                in.putExtra("duid", duid);
+        btnsend= (FloatingActionButton) findViewById(R.id.btnsend) ;
+        chtxtinput =  (EditText) findViewById(R.id.chtxtinput);
 
-                // starting new activity and expecting some response back
-                startActivityForResult(in, 100);
+
+        chtxtinput.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                   String message = chtxtinput.getText().toString();
+                    chtxtinput.setText("");
+                    return sendChatMessage(puid,duid,message,name);
+                }
+                return false;
             }
         });
+
+
+
+        btnsend.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                final String message = chtxtinput.getText().toString();
+                Log.e("mssg", "the message type is: "+message);
+                Convos con = new Convos();
+                con.setCnmssg(message);
+                con.setCnsndname(name+":");
+                cnList.add(con);
+                adapter.notifyDataSetChanged();
+
+                adapter.registerDataSetObserver(new DataSetObserver() {
+                    @Override
+                    public void onChanged() {
+                        super.onChanged();
+                        Log.e("adapterobserver", "SEND: Inside onChanged()");
+                        listView.setSelection(adapter.getCount() - 1);
+                    }
+                });
+
+
+                sendmssg(puid,duid,message);
+            }
+        });
+
+        listView.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        adapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                listView.setSelection(adapter.getCount() - 1);
+            }
+        });
+
+
+
+//sendbtn= (Button) findViewById(R.id.newmssgbtn) ;
+
+
+
+        //sendbtn.setOnClickListener(new View.OnClickListener() {
+            //public void onClick(View view) {
+                // Starting new intent
+              //  Intent in = new Intent(getApplicationContext(),
+              //          MessagingActivity.class);
+                // sending did to next activity
+              //  in.putExtra("puid", puid);
+              //  in.putExtra("duid", duid);
+
+                // starting new activity and expecting some response back
+               // startActivityForResult(in, 100);
+           // }
+       // });
 
         //listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -199,15 +272,50 @@ sendbtn= (Button) findViewById(R.id.newmssgbtn) ;
     }
 
 
+    private boolean sendChatMessage(String puid,String duid,String message,String name) {
+        Convos con = new Convos();
+        con.setCnmssg(message);
+        con.setCnsndname(name+":");
+        cnList.add(con);
+        adapter.notifyDataSetChanged();
+        sendmssg(puid,duid,message);
+
+        return true;
+    }
+
+
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            get_convos(ptid,dtid);
+           // get_convos(ptid,dtid);
             String action = intent.getAction();
             String message=intent.getStringExtra("message");
-            Log.e("broadlog","inside onreceive in the activity " + message);
+            String mssg=intent.getStringExtra("mssg");
+            String sid=intent.getStringExtra("sid");
+            String sname=intent.getStringExtra("sname");
 
+
+            Log.e("broadlog","Inside onreceive broadcast");
+            Log.e("broadlog","The NOTE MESSAGE IS " + message);
+            Log.e("broadlog","the new convo message is:  " + mssg);
+            Log.e("broadlog","the receiving USERID IS: " + sid);
+
+            if(sid.equals(dtid)) {
+                Convos con = new Convos();
+                con.setCnmssg(mssg);
+                con.setCnsndname(sname+":");
+                cnList.add(con);
+                adapter.notifyDataSetChanged();
+                adapter.registerDataSetObserver(new DataSetObserver() {
+                    @Override
+                    public void onChanged() {
+                        super.onChanged();
+                        Log.e("adapterobserver", "RECEIVE: Inside onChanged()");
+                        listView.setSelection(adapter.getCount() - 1);
+                    }
+                });
+            }
 
 
 
@@ -236,7 +344,7 @@ sendbtn= (Button) findViewById(R.id.newmssgbtn) ;
 
             @Override
             public void onResponse(String response) {
-                hidePDialog();
+               hidePDialog();
                 try {
 
                     Log.e("viewbook", "inside onresponse- Response String is: "+response);
@@ -262,7 +370,7 @@ sendbtn= (Button) findViewById(R.id.newmssgbtn) ;
                                 JSONObject obj = chatsarray.getJSONObject(i);
                                 Convos con = new Convos();
                                 con.setCnmssg(obj.getString("mssg"));
-                                con.setCnsndname(obj.getString("sname"));
+                                con.setCnsndname(obj.getString("sname")+":");
 
                             //    chat.setPuid(obj.getString("puid"));
                             //    chat.setDuid(obj.getString("duid"));
@@ -323,6 +431,103 @@ sendbtn= (Button) findViewById(R.id.newmssgbtn) ;
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
+
+
+
+
+
+
+
+
+
+    private void sendmssg(final String puid, final String duid, final String mssg) {
+        // Tag used to cancel the request
+        String tag_string_req = "req_register";
+
+     //   pDialog.setMessage("Requesting ...");
+//        showDialog();
+        Log.e("mssg", "in sendmssg() before post");
+        final String sendmssg_api="http://azmediame.net/med360/webinterface/api/send_message.php";
+        Log.e("bookapp", "code to clear cache is below");
+        AppController.getInstance().getRequestQueue().getCache().remove(sendmssg_api);
+        StringRequest strReq2 = new StringRequest(Request.Method.POST,sendmssg_api, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("mssg", "Send Message Response: " + response.toString());
+               // hideDialog();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+
+                    //boolean error = jObj.getBoolean("error");
+                    String success = jObj.getString("success");
+                    if (success.equals("1")) {
+                        // Request stored in MySQL
+
+                        Toast.makeText(getApplicationContext(), "Message Sent Successfully", Toast.LENGTH_LONG).show();
+
+                        // Launch doctor profile activity
+                        // Starting new intent
+                       // Intent in = new Intent(getApplicationContext(),
+                        //        ConversationActivity.class);
+                        // sending pid to next activity
+                      //  in.putExtra("puid", puid);
+                       // in.putExtra("duid", duid);
+
+                        // starting new activity and expecting some response back
+                    //    startActivityForResult(in, 100);
+
+                    } else {
+
+                        // Error occurred in registration. Get the error
+                        // message
+                        String errorMsg = jObj.getString("message");
+                        Toast.makeText(getApplicationContext(),
+                                errorMsg, Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", "Registration Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+               // hideDialog();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting params to register url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("sender_id", puid);
+                params.put("reciepent_id", duid);
+                params.put("message", mssg);
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq2, tag_string_req);
+    }
+
+
+
+
+
+
+
+
+
+
     private void hidePDialog() {
         if (pDialog != null) {
             pDialog.dismiss();
@@ -339,4 +544,13 @@ sendbtn= (Button) findViewById(R.id.newmssgbtn) ;
         session.setLogin(false);
         session.logoutUser();
     }
+
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
 }
+
+
+

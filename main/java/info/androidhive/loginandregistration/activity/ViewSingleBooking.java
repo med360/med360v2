@@ -84,6 +84,7 @@ public class ViewSingleBooking extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.pull_in_from_left, R.anim.hold);
         setContentView(R.layout.activity_view_single_booking);
 
 

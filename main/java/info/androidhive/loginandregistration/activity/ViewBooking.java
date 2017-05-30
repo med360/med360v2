@@ -97,6 +97,7 @@ public class ViewBooking extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.slide_up, R.anim.hold);
         setContentView(R.layout.activity_view_booking);
         session = new SessionManager(getApplicationContext());
 

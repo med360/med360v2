@@ -1,59 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_chat"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingBottom="@dimen/activity_vertical_margin"
+android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
+tools:context="info.androidhive.loginandregistration.activity.MessageActivity">
+
+<android.support.design.widget.FloatingActionButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:src="@drawable/ic_launcher"
+    android:id="@+id/btnsend"
+    android:tint="@android:color/white"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    app:fabSize="mini" />
+
+<android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_toLeftOf="@id/btnsend"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your message"
+        android:id="@+id/chtxtinput"/>
+</android.support.design.widget.TextInputLayout>
+
+<ListView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="info.androidhive.loginandregistration.activity.ViewBooking">
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true"
+    android:layout_above="@id/btnsend"
+    android:dividerHeight="16dp"
+    android:divider="@android:color/transparent"
+    android:id="@+id/cnlist"
+    android:layout_marginBottom="16dp"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:weightSum="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="428dp"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="20dp">
-
-            <Button
-                android:id="@+id/newmssgbtn"
-                android:layout_width="144dp"
-                android:layout_height="34dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="180dip"
-                android:background="#ff6861"
-                android:text="New Message"
-                android:textColor="#FFFFFF"
-
-                tools:ignore="RtlHardcoded" />
-
-
-            <ListView
-                android:id="@+id/cnlist"
-                android:layout_width="320dp"
-                android:layout_height="393dp"
-                android:divider="@color/list_divider"
-                android:dividerHeight="1dp"
-                android:listSelector="@drawable/list_row_selector" />
-
-
-        </LinearLayout>
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:background="?android:attr/windowBackground"
-            app:menu="@menu/navigation" />
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
-
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/cnlist"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation" />
+</RelativeLayout>
