@@ -441,10 +441,16 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Take appropriate action for each action item click
-
-        setContentView(R.layout.dialog_filter);
-
-        openDialog();
+        switch (item.getItemId()) {
+            case R.id.filter:
+                setContentView(R.layout.dialog_filter);
+                openDialog();
+                break;
+            case R.id.maps:
+                Intent i = new Intent(this, MapsActivity.class);
+                startActivity(i);
+                break;
+        }
         return true;
     }
 

@@ -3,6 +3,7 @@ package info.androidhive.loginandregistration.activity;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.model.Filtervalues;
 import info.androidhive.loginandregistration.model.Movie;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback  {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
 private String url="http://azmediame.net/med360/webinterface/api/get_markers.php";

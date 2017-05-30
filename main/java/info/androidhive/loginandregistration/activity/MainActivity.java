@@ -96,17 +96,17 @@ public class MainActivity extends AppCompatActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_bottom);
-		toolbarBottom.inflateMenu(R.menu.navigation);
-		toolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem menuItem) {
+		//Toolbar toolbarBottom = (Toolbar) findViewById(R.id.toolbar_bottom);
+		//toolbarBottom.inflateMenu(R.menu.navigation);
+		//toolbarBottom.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+			//@Override
+			/*public boolean onMenuItemClick(MenuItem menuItem) {
 				//your code
 
 
 				return false;
 			}
-		});
+		});*/
 		txtName = (TextView) findViewById(R.id.name);
 		txtEmail = (TextView) findViewById(R.id.email);
 		btnLogout = (Button) findViewById(R.id.btnLogout);
@@ -114,11 +114,11 @@ public class MainActivity extends AppCompatActivity{
 		txtnational = (TextView) findViewById(R.id.nationality);
 		txtblood = (TextView) findViewById(R.id.bloodgroup);
 		thumbNail = (NetworkImageView) findViewById(R.id.userimage);
-		imgbtn1 = (ImageButton) findViewById(R.id.imgbtn1);
-		imgbtn2 = (ImageButton) findViewById(R.id.imgbtn2);
-		imgbtn3 = (ImageButton) findViewById(R.id.imgbtn3);
-		imgbtn4 = (ImageButton) findViewById(R.id.imgbtn4);
-		imgbtn5 = (ImageButton) findViewById(R.id.imgbtn5);
+		//imgbtn1 = (ImageButton) findViewById(R.id.imgbtn1);
+		//imgbtn2 = (ImageButton) findViewById(R.id.imgbtn2);
+		//imgbtn3 = (ImageButton) findViewById(R.id.imgbtn3);
+		//imgbtn4 = (ImageButton) findViewById(R.id.imgbtn4);
+		//imgbtn5 = (ImageButton) findViewById(R.id.imgbtn5);
 		btnchange = (Button) findViewById(R.id.btnchange);
 
 		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity{
 		navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-
+//logoutUser();
 		// SqLite database handler
 
 
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity{
 		});
 
 
-		imgbtn1.setOnClickListener(new View.OnClickListener() {
+		/*imgbtn1.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity{
 			public void onClick(View v) {
 				session.logoutUser();
 			}
-		});
+		});*/
 	}
 
 	/**
