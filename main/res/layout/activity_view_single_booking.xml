@@ -23,9 +23,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="0.87"
+            android:layout_weight="0.95"
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -45,9 +45,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/bkthumbnail"
+                android:layout_marginTop="10dip"
                 android:layout_toRightOf="@+id/bkthumbnail"
                 android:text="17/01/2014"
-                android:layout_marginTop="10dip"
                 android:textColor="#000000"
                 android:textSize="26dip"
                 android:textStyle="bold" />
@@ -93,8 +93,8 @@
                 android:layout_toRightOf="@+id/bkthumbnail"
                 android:text=""
                 android:textColor="#000000"
-                android:textStyle="bold"
-                android:textSize="22dip" />
+                android:textSize="22dip"
+                android:textStyle="bold" />
 
 
             <Button
@@ -105,12 +105,17 @@
                 android:background="#FF0000"
                 android:text="CANCEL APPOINTMENT"
                 android:textColor="#FFFFFF"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.03" />
 
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/navigation"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="67dp"
                 android:layout_gravity="bottom"
                 android:background="?android:attr/windowBackground"
                 app:menu="@menu/navigation" />

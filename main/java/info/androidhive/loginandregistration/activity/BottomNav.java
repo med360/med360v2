@@ -32,8 +32,15 @@ public class BottomNav extends AppCompatActivity {
                 case R.id.messg:
                     Log.e("medlogin", "before redirecting to new activity on success login");
                     Intent intent2 = new Intent(BottomNav.this,
-                            Viewdoctor.class);
+                            ViewBooking.class);
                     startActivity(intent2);
+                    finish();
+                    return true;
+                case R.id.apointment:
+                    Log.e("medlogin", "before redirecting to new activity on success login");
+                    Intent intent5 = new Intent(BottomNav.this,
+                            ViewChats.class);
+                    startActivity(intent5);
                     finish();
                     return true;
                 case R.id.profilenav:
@@ -61,7 +68,7 @@ public class BottomNav extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_nav);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+       // mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +33,7 @@ import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.adapter.BookingListAdapter;
 import info.androidhive.loginandregistration.adapter.CustomListAdapter;
 import info.androidhive.loginandregistration.app.AppController;
+import info.androidhive.loginandregistration.helper.BottomNavigationViewHelper;
 import info.androidhive.loginandregistration.helper.SessionManager;
 import info.androidhive.loginandregistration.model.Appointment;
 import info.androidhive.loginandregistration.model.Movie;
@@ -159,7 +161,10 @@ public class ViewBooking extends AppCompatActivity {
         });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

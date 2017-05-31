@@ -278,6 +278,7 @@ private Button sendbtn;
         con.setCnsndname(name+":");
         cnList.add(con);
         adapter.notifyDataSetChanged();
+        chtxtinput.setText("");
         sendmssg(puid,duid,message);
 
         return true;

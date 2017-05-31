@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +33,7 @@ import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.adapter.BookingListAdapter;
 import info.androidhive.loginandregistration.adapter.ChatListAdapter;
 import info.androidhive.loginandregistration.app.AppController;
+import info.androidhive.loginandregistration.helper.BottomNavigationViewHelper;
 import info.androidhive.loginandregistration.helper.SessionManager;
 import info.androidhive.loginandregistration.model.Appointment;
 import info.androidhive.loginandregistration.model.Chats;
@@ -78,7 +80,7 @@ public class ViewChats extends AppCompatActivity {
                     Intent intent3 = new Intent(ViewChats.this,
                             MainActivity.class);
                     startActivity(intent3);
-                    finish();
+                    //finish();
                     return true;
                 case R.id.logoutnav:
                     Log.e("medlogin", "before redirecting to new activity on success login");
@@ -164,9 +166,13 @@ public class ViewChats extends AppCompatActivity {
        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(2);
+        menuItem.setChecked(true);
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
 
         pDialog = new ProgressDialog(this);
         // Showing progress dialog before making http request

@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.app.AppController;
+import info.androidhive.loginandregistration.helper.BottomNavigationViewHelper;
 import info.androidhive.loginandregistration.helper.SessionManager;
 
 public class ViewSingleBooking extends AppCompatActivity {
@@ -53,6 +55,7 @@ public class ViewSingleBooking extends AppCompatActivity {
                             Viewdoctor.class);
                     startActivity(intent);
                     finish();
+                    ViewSingleBooking.this.overridePendingTransition(0,0);
                     return true;
                 case R.id.messg:
                     Log.e("medlogin", "before redirecting to new activity on success login");
@@ -60,6 +63,15 @@ public class ViewSingleBooking extends AppCompatActivity {
                             ViewBooking.class);
                     startActivity(intent2);
                     finish();
+                    ViewSingleBooking.this.overridePendingTransition(0,0);
+                    return true;
+                case R.id.apointment:
+                    Log.e("medlogin", "before redirecting to new activity on success login");
+                    Intent intent5 = new Intent(ViewSingleBooking.this,
+                            ViewChats.class);
+                    startActivity(intent5);
+                    finish();
+                    ViewSingleBooking.this.overridePendingTransition(0,0);
                     return true;
                 case R.id.profilenav:
                     Log.e("medlogin", "before redirecting to new activity on success login");
@@ -67,6 +79,7 @@ public class ViewSingleBooking extends AppCompatActivity {
                             MainActivity.class);
                     startActivity(intent3);
                     finish();
+                    ViewSingleBooking.this.overridePendingTransition(0,0);
                     return true;
                 case R.id.logoutnav:
                     Log.e("medlogin", "before redirecting to new activity on success logout");
@@ -142,6 +155,10 @@ public class ViewSingleBooking extends AppCompatActivity {
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         ImageLoader imgLoader;

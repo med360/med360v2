@@ -20,6 +20,7 @@ import info.androidhive.loginandregistration.adapter.CustomListAdapter;
 import info.androidhive.loginandregistration.app.AppConfig;
 import info.androidhive.loginandregistration.app.AppController;
 import info.androidhive.loginandregistration.app.PlaceJSONParser;
+import info.androidhive.loginandregistration.helper.BottomNavigationViewHelper;
 import info.androidhive.loginandregistration.helper.SessionManager;
 import info.androidhive.loginandregistration.model.Filtervalues;
 import info.androidhive.loginandregistration.model.Movie;
@@ -353,7 +354,10 @@ public class Viewdoctor extends AppCompatActivity implements ConnectionCallbacks
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
-
+        BottomNavigationViewHelper.disableShiftMode(navigation);
+        Menu menu = navigation.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         displayLocation();
