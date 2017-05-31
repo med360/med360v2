@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="serif"
-            android:text="BOOK APPOINTMENT"
+            android:text="REQUEST APPOINTMENT"
             android:textAlignment="center"
             android:textColor="#ea4c88"
             android:textSize="24sp"
